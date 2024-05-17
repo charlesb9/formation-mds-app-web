@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", require("./routes/user.route"));
 app.use("/auth", require("./routes/auth.route"));
+app.use("/task", require("./routes/task.route"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
