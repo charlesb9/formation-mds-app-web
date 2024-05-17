@@ -9,7 +9,7 @@ import { IconComponent } from './icon.component';
   template: `
     <div
       [ngClass]="!disabled ? variantClass : null"
-      class="flex items-center justify-center rounded-lg px-3"
+      class="flex items-center justify-center text-white rounded-lg px-3"
     >
       @if(iconPrefix && !disabled) {
         <app-icon [iconName]="iconPrefix" />
