@@ -9,13 +9,13 @@ import { IconComponent } from './icon.component';
   template: `
     <div
       [ngClass]="variantClass"
-      class="flex items-center justify-center rounded-lg px-3"
+      class="flex items-center justify-center rounded-lg px-3 text-white"
     >
       @if(iconPrefix) {
         <app-icon [iconName]="iconPrefix" />
       }
       <button
-        class="rounded-lg text-white bg-transparent"
+        class="rounded-lg bg-transparent"
         (click)="handleClick()"
       >
         {{ label }}
