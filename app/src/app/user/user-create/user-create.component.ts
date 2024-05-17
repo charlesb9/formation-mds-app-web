@@ -18,8 +18,8 @@
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './user.service';
-import { User } from '../interfaces/user.interface';
+import { UserService } from '../user.service';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-user-create',
