@@ -18,16 +18,14 @@ export class ProjectComponent {
 
   showProjectModal = false;
   projectService = inject(ProjectService);
-
   randomId =  Math.floor(Math.random() * 1000000).toString();
-
   
   projetForm = new FormGroup<ProjectForm>({
     id: new FormControl(this.randomId, {nonNullable : true}),
     title: new FormControl("",{nonNullable : true}),
     description: new FormControl("",{nonNullable : true}),
     tasks: new FormArray<FormGroup<TaskForm>>([]),
-    status: new FormArray<FormControl<string>>([]),
+    status: new FormArray<FormControl<{name: string, color: string}>>([]),
     startDate: new FormControl(new Date(), {nonNullable: true}),
     endDate: new FormControl(new Date(), {nonNullable: true})
   }, {updateOn: 'blur'})
@@ -46,8 +44,8 @@ export class ProjectComponent {
     }
   }
 
-  addStatus(status?: string) {
-    let control : FormControl<string> = new FormControl("", {nonNullable: true});
+  addStatus(status?: {name: string, color: string}) {
+    let control : FormControl<{name: string, color: string}> = new FormControl({name: "", color: ""}, {nonNullable: true});
     if (status) control.patchValue(status);
     this.projetForm.controls.status.push(control);
   }
@@ -78,8 +76,10 @@ export class ProjectComponent {
   }
 
 
-  save() {
+  save(event: Event) {
+    event.preventDefault();
     this.projectService.save(this.projetForm.getRawValue());
+    this.setShowAddProject();
     this.reset();
   }
   

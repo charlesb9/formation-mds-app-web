@@ -80,7 +80,7 @@
           <input type="date" id="start" [formControl]="projetForm.controls.startDate"/>
           <label for="end">End date</label>
           <input type="date" id="end" [formControl]="projetForm.controls.startDate"/>
-          <button (click)="save()">Add</button>
+          <button (click)="save($event)">Add</button>
         </form>
       </div>
     </div>
@@ -119,8 +119,6 @@
               <label>Fin</label>
               <input type="date" [formControl]="form.controls.end" />
             </div>
-            
-            
           </div>
       </div>
     }
