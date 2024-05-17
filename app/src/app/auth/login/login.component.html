@@ -12,6 +12,7 @@
       type="password"
     />
     <app-button [disabled]="false" label="Se connecter" variant="danger" iconPrefix="add" (onClick)="login()"/>
+    <app-euro-input/>
   </div>
   <app-select [data]="['fr', 'en']" [isSearch]="true" [width]="300" [title]="'Recherche de pays'"></app-select>
 
