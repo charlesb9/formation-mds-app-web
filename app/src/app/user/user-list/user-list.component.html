@@ -2,7 +2,11 @@
     <h2>User List</h2>
     <ul>
         <li *ngFor="let user of users">
-            <app-user-card [user]="user"></app-user-card>
+            <div class="user-card">
+                <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Roles:</strong> {{ user.roles.join(', ') }}</p>
+              </div>
         </li>
     </ul>
 </div>
