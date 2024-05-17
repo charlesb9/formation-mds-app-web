@@ -20,12 +20,16 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     .danger {
       background-color: #dc3545;
     }
+    .create {
+      background-color: #7ffc03;
+    }
   `]
 })
 export class ButtonComponent {
   @Input() label: string = 'Click me';
-  @Input() variant: 'normal' | 'danger' = 'normal';
+  @Input() variant: 'normal' | 'danger' | 'create' = 'normal';
   @Output() onClick = new EventEmitter<void>();
+
 
   get variantClass(): string {
     return this.variant;
