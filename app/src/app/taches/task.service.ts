@@ -94,4 +94,45 @@ export class TaskService {
     /* return this.http.get<Task[]>('tasks') */
   }
 
+  getTask(id: string) {
+    return of(tasks).pipe(
+      map((tasks) => tasks.find(task => task.id === id))
+    );
+    /* return this.http.get<Task>(`tasks/${id}`) */
+  }
+
+  getTasksByProject(projectId: string) {
+    return of(tasks).pipe(
+      map((tasks) => tasks.filter(task => task.project.id === projectId))
+    );
+    /* return this.http.get<Task[]>(`tasks/project/${projectId}`) */
+  }
+
+  createTask(task: Task) {
+    tasks.push(task);
+    return of(task);
+    /* return this.http.post<Task>('tasks', task) */
+  }
+
+  updateTask(task: Task) {
+    const index = tasks.findIndex(t => t.id === task.id);
+    tasks[index] = task;
+    return of(task);
+    /* return this.http.put<Task>(`tasks/${task.id}`, task) */
+  }
+
+  deleteTask(id: string) {
+    const index = tasks.findIndex(t => t.id === id);
+    tasks.splice(index, 1);
+    return of(id);
+    /* return this.http.delete(`tasks/${id}`) */
+  }
+
+  archiveTask(id: string) {
+    const index = tasks.findIndex(t => t.id === id);
+    tasks[index].status = { title: 'archived', color: 'grey' };
+    return of(tasks[index]);
+    /* return this.http.put<Task>(`tasks/${id}/archive`, tasks[index]) */
+  }
+
 }
