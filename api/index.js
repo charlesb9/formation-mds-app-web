@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config({ path: __dirname + "/../.env.local" });
 
@@ -9,13 +10,22 @@ const port = 3000;
 
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,POST,PUT,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+  })
+);
+
 const user = encodeURIComponent(process.env.DB_USER);
 const password = encodeURIComponent(process.env.DB_PASSWORD);
 const address = process.env.DB_ADDRESS;
 const dbName = process.env.DB_NAME;
 
 const url = `mongodb://${user}:${password}@${address}/${dbName}`;
-console.log(url)
+console.log(url);
 
 main().catch((err) => console.log(err));
 
