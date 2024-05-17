@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use(require("./middleware/checkJWT"));
+// app.use(require("./middleware/checkJWT"));
 app.use("/user", require("./routes/user.route"));
 app.use("/auth", require("./routes/auth.route"));
 app.use("/task", require("./routes/task.route"));
