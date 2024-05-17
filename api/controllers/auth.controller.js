@@ -30,10 +30,8 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-
   try {
     const { email, password, firstName, lastName } = req.body;
-    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       email,
@@ -43,7 +41,6 @@ exports.register = async (req, res) => {
       roles: ["user"],
     });
 
-    console.log("obj user",user);
     await user.save();
     res.status(201).send(user);
   } catch (err) {
