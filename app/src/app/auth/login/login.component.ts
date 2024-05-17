@@ -2,13 +2,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from "../../components/button.component";
+import { EuroInputComponent } from "../../components/euro-input.component";
 
 @Component({
     selector: 'app-login',
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    imports: [ButtonComponent]
+    imports: [ButtonComponent, EuroInputComponent]
 })
 export class LoginComponent {
 
