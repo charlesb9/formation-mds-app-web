@@ -1,16 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-icon',
   standalone: true,
   imports: [CommonModule],
   template: `
-  <div [innerHTML]="icon"></div>
+  <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(icon)"></div>
   `,
   styles: ``
 })
 export class IconComponent {
+
+  sanitizer = inject(DomSanitizer)
+
   @Input({required : true}) iconName!: string;
   @Input() color: string = '#000000';
 
