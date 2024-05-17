@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -13,13 +13,13 @@ import { debounceTime } from 'rxjs';
         {{ selectedValue || 'Select an option' }}
       </div>
       <div class="dropdown-list" *ngIf="dropdownOpen">
-        <input
-          *ngIf="isSearch"
-          type="text"
-          placeholder="Rechercher..."
-          [formControl]="searchControl"
-          ]
-        />
+        <div class="dropdown-item" *ngIf="isSearch">
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            [formControl]="searchControl"
+          />
+        </div>
         <div
           *ngFor="let item of filteredData"
           (click)="selectItem(item)"
@@ -35,7 +35,7 @@ import { debounceTime } from 'rxjs';
       .dropdown {
         position: relative;
         display: inline-block;
-        width: 640px;
+        width: 200px;
       }
       .dropdown-select {
         padding: 10px;
@@ -71,31 +71,27 @@ import { debounceTime } from 'rxjs';
     `,
   ],
 })
-export class SelectComponent {
-  @Input() data: any[] = [];
+export class SelectComponent implements OnInit {
+  @Input() data: string[] = [];
   @Input() isSearch: boolean = false;
   filteredData: string[] = [];
-  searchTerm: string = '';
   selectedValue: string | null = null;
   dropdownOpen: boolean = false;
+  searchControl = new FormControl();
 
   ngOnInit() {
     this.filteredData = this.data;
-    this.searchControl.valueChanges
-      .pipe(debounceTime(300))
-      .subscribe((value) => {
-        this.searchData(value);
-      });
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
+      this.searchData(value);
+    });
   }
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
     if (!this.dropdownOpen) {
-      this.searchTerm = '';
+      this.filteredData = this.data;
     }
   }
-
-  searchControl = new FormControl();
 
   selectItem(item: string) {
     this.selectedValue = item;
@@ -106,7 +102,7 @@ export class SelectComponent {
     this.filteredData = !value
       ? this.data
       : this.data.filter((item) =>
-          item.toLowerCase().includes(value.toLowerCase())
-        );
+        item.toLowerCase().includes(value.toLowerCase())
+      );
   }
 }
