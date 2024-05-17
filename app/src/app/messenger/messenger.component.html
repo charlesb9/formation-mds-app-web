@@ -1,0 +1,18 @@
+
+@if(logged){
+    <send-message (send)="send($event)"/>
+  }@else { 
+    <input class="border border-slate-600 p-2 m-2" type="text" [(ngModel)]="username">
+    <button (click)="login()">Connexion</button>
+  }
+  @for (item of messages; track $index){
+    <div @fadeIn class="p-4 rounded m-4 w-2/4" [ngClass]="item.username === 'dad' ? 'bg-slate-400 ml-16' : 'bg-slate-100' ">
+    <div class="flex justify-between mb-9">      
+      <p class="font-bold">{{ item.username }}</p>
+      <p class="italic">{{item.datetime | date:"dd/MM/YYYY à HH:mm:ss"}}</p>
+    </div>
+    <p [innerHTML]="item.content | parseLink"></p>
+    </div>
+  }
+
+  

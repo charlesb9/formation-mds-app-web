@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button{
+    @apply rounded p-2 bg-sky-600 text-white disabled:bg-gray-200;
+}
+
+input, select {
+    @apply h-10;
+}
+
+input, textarea, select {
+    @apply border rounded w-full
+}
+
+label {
+    @apply uppercase font-semibold
+}
+
+h1 {
+    @apply text-4xl font-semibold;
+}
+
+h2 {
+    @apply text-3xl font-semibold;
+}
+
+h3 {
+    @apply text-2xl font-semibold;
+}
+
+h4 {
+    @apply text-xl font-semibold;
+}
+
+h5 {
+    @apply text-lg font-semibold;
+}
