@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { Task } from '../../../../common/task.interface';
 
 const tasks: Task[] = [
@@ -79,39 +79,19 @@ export class TaskService {
 
   http = inject(HttpClient);
 
-  tasks: Task[] = [];
-
   constructor() {
-    this.getTasks();
-    setTimeout(() => {
-      console.log('List of all task', this.tasks);
-    }, 1000);
+    this.getTasks().subscribe(
+      (tasks) => {
+        console.log('Tasks', tasks);
+      }
+    );
   }
 
   getTasks() {
-    of(tasks).subscribe((tasks) => {
-      this.tasks = tasks;
-    });
-    /* this.http.get<Task[]>('tasks').subscribe((tasks) => {
-      this.tasks = tasks;
-    }); */
-    console.log('List of all task', this.tasks);
-    return this.tasks;
-  }
-
-  getTask(id: string) {
-    console.log('Task with id', id, this.tasks.find(task => task.id === id));
-    return this.tasks.find(task => task.id === id);
-  }
-
-  getTasksByProject(projectId: string) {
-    console.log('Tasks of project', projectId, this.tasks.filter(task => task.project.id === projectId));
-    return this.tasks.filter(task => task.project.id === projectId);
-  }
-
-  getTasksByUser(userId: string) {
-    console.log('Tasks of user', userId, this.tasks.filter(task => task.users.find(user => user.id === userId)));
-    return this.tasks.filter(task => task.users.find(user => user.id === userId));
+    return of(tasks).pipe(
+      map((tasks) => tasks.filter(task => task.id && task.title))
+    );
+    /* return this.http.get<Task[]>('tasks') */
   }
 
 }
