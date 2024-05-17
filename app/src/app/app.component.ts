@@ -16,7 +16,8 @@ import { AuthService } from './auth/auth.service';
       <div class=" flex gap-5 bg-sky-900 text-white p-4 ">
         @if(isAuth){
           <a routerLink="/messenger">Chat</a>
-          <a routerLink="/projet">Projet</a>
+          <a routerLink="/">Projets</a>
+          <a routerLink="/project">Project</a>
           <a (click)="authService.logout()" >Déconnexion</a>
         }@else {
           <a routerLink="/login">Connexion</a>
