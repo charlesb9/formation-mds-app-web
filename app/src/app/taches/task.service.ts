@@ -72,12 +72,15 @@ const tasks: Task[] = [
     }
   ];
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
   http = inject(HttpClient);
+
+  api = 'http://localhost:3000';
 
   constructor() {
     this.getTasks().subscribe(
@@ -88,10 +91,10 @@ export class TaskService {
   }
 
   getTasks() {
-    return of(tasks).pipe(
+    /* return of(tasks).pipe(
       map((tasks) => tasks.filter(task => task.id && task.title))
-    );
-    /* return this.http.get<Task[]>('tasks') */
+    ); */
+    return this.http.get<Task[]>(this.api + '/tasks');
   }
 
   getTask(id: string) {
