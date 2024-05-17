@@ -1,28 +1,22 @@
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
+
 dotenv.config({ path: __dirname + '/../../.env.local' });
 
-// URL de connexion à la base de données MongoDB
-const url = process.env.DB_ADRESS;
+const user = encodeURIComponent(process.env.DB_USER);
+const password = encodeURIComponent(process.env.DB_PASSWORD);
+const address = process.env.DB_ADDRESS;
 const dbName = process.env.DB_NAME;
 
-// Fonction pour se connecter à la base de données
-async function connectToDatabase() {
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-    await client.connect();
-    return client;
-}
+const uri = `mongodb://${user}:${password}@${address}/${dbName}`;
 
-// Connexion à la base de données
+const client = new MongoClient(uri);
+
 async function connect() {
-    try {
-        const client = await connectToDatabase();
-        console.log("Connexion réussie à la base de données");
-        return client.db(dbName);
-    } catch (error) {
-        console.error("Erreur de connexion à la base de données:", error);
-        throw error;
+    if (!client.topology || !client.topology.isConnected()) {
+        await client.connect();
     }
+    return client.db(dbName);
 }
 
 module.exports = { connect };
