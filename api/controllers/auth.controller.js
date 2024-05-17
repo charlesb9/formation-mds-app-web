@@ -21,11 +21,12 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user._id, roles: user.roles },
-      "your_jwt_secret"
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
     );
     res.status(200).send({ token });
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
 
