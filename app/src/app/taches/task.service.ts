@@ -94,7 +94,7 @@ export class TaskService {
     /* return of(tasks).pipe(
       map((tasks) => tasks.filter(task => task.id && task.title))
     ); */
-    return this.http.get<Task[]>(this.api + '/tasks');
+    return this.http.get<Task[]>(this.api + '/task');
   }
 
   getTask(id: string) {
