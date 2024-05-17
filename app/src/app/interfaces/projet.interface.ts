@@ -10,8 +10,11 @@ export interface Project {
 export interface ProjectForm {
     id: FormControl<string>;
     title: FormControl<string>;
+    description: FormControl<string>;
     tasks: FormArray<FormGroup<TaskForm>>;
     status: FormArray<FormControl<string>>;
+    startDate: FormControl<Date>;
+    endDate: FormControl<Date>;
 };
 
 export interface Task {

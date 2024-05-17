@@ -18,25 +18,32 @@ export class ProjectComponent {
 
   showProjectModal = false;
   projectService = inject(ProjectService);
+
+  randomId =  Math.floor(Math.random() * 1000000).toString();
+
   
   projetForm = new FormGroup<ProjectForm>({
-    id: new FormControl("",{nonNullable : true}),
+    id: new FormControl(this.randomId, {nonNullable : true}),
     title: new FormControl("",{nonNullable : true}),
+    description: new FormControl("",{nonNullable : true}),
     tasks: new FormArray<FormGroup<TaskForm>>([]),
-    status: new FormArray<FormControl<string>>([])
+    status: new FormArray<FormControl<string>>([]),
+    startDate: new FormControl(new Date(), {nonNullable: true}),
+    endDate: new FormControl(new Date(), {nonNullable: true})
   }, {updateOn: 'blur'})
 
   ngOnInit() {
-    let project = this.projectService.get();
-    if (project) {
-      const {tasks, status, ...rest} = project;
-      this.projetForm.patchValue(rest);
-      tasks.forEach(task => this.addTask(task));
-      status.forEach(s => this.addStatus(s));
+    let projects = this.projectService.get();
+    if (projects) {
+      projects.forEach(project => {
+        project.tasks.forEach(task => {
+          this.addTask(task);
+        });
+        project.status.forEach(status => {
+          this.addStatus(status);
+        });
+      })
     }
-    this.projetForm.valueChanges.subscribe(e => {
-      this.update();
-    });
   }
 
   addStatus(status?: string) {
@@ -45,8 +52,13 @@ export class ProjectComponent {
     this.projetForm.controls.status.push(control);
   }
 
-  showAddProject() {
-    this.showProjectModal = true;
+  setShowAddProject() {
+    this.showProjectModal = !this.showProjectModal;
+    if (!this.showProjectModal) this.reset();
+  }
+
+  reset() {
+    this.projetForm.reset();
   }
 
   get projet() {
@@ -66,8 +78,9 @@ export class ProjectComponent {
   }
 
 
-  update() {
-    this.projectService.update(this.projetForm.getRawValue());
+  save() {
+    this.projectService.save(this.projetForm.getRawValue());
+    this.reset();
   }
   
 }
