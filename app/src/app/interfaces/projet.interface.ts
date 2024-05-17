@@ -4,14 +4,17 @@ export interface Project {
     id: string;
     title: string;
     tasks: Task[];
-    status: string[];
+    status: {name: string, color: string}[];
 };
 
 export interface ProjectForm {
     id: FormControl<string>;
     title: FormControl<string>;
+    description: FormControl<string>;
     tasks: FormArray<FormGroup<TaskForm>>;
-    status: FormArray<FormControl<string>>;
+    status: FormArray<FormControl<{name: string, color: string}>>;
+    startDate: FormControl<Date>;
+    endDate: FormControl<Date>;
 };
 
 export interface Task {
