@@ -16,16 +16,21 @@
 // }
 
 
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
+import { FormsModule } from '@angular/forms';
 
+@NgModule({
+  imports: [FormsModule]
+})
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.css']
 })
+
 export class UserCreateComponent {
   user: User = {
     id: '',
