@@ -1,4 +1,4 @@
-<!-- <section class="p-4">
+<section class="p-4">
   <div class="font-bold text-4xl">{{ projet.title }}</div>
   <div class="my-6 mx-4 flex gap-1">
     <input
@@ -7,6 +7,7 @@
     />
     <button class="p-2 bg-gray-300 border border-slate-400">Discard</button>
     <button class="p-2 bg-green-300 border border-slate-400">Save</button>
+    <button class="p-2 bg-red-300 border border-slate-400" (click)="showAddProject">Add project</button>
   </div>
   <div class="container flex gap-3">
     <div class="column">
@@ -60,7 +61,7 @@
       </div>
     </div>
   </div>
-</section> -->
+</section>
 
 <section class="bg-slate-100 p-4 flex flex-col items-center gap-2">
   <form [formGroup]="projetForm" class="flex flex-col gap-2 w-full max-w-xl mx-auto">

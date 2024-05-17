@@ -16,6 +16,7 @@ import { ProjectService } from './project.service';
 })
 export class ProjectComponent {
 
+  showProjectModal = false;
   projectService = inject(ProjectService);
   
   projetForm = new FormGroup<ProjectForm>({
@@ -42,6 +43,10 @@ export class ProjectComponent {
     let control : FormControl<string> = new FormControl("", {nonNullable: true});
     if (status) control.patchValue(status);
     this.projetForm.controls.status.push(control);
+  }
+
+  showAddProject() {
+    this.showProjectModal = true;
   }
 
   get projet() {
