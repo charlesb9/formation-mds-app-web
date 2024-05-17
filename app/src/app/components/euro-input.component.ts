@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -7,8 +7,8 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="w-[120px] h-4" (click)="onDivClick($event)">
-      <span class="w-full rounded-md h-fit" *ngIf="!isEditing">{{ displayValue | currency}}</span>
+    <div class=" h-12" [style.width.px]="width" (click)="onDivClick($event)">
+      <span class="w-full rounded-md h-full" *ngIf="!isEditing">{{ displayValue | currency}}</span>
       <input
         class="w-full h-fit"
         *ngIf="isEditing"
@@ -43,6 +43,8 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class EuroInputComponent {
+  //width
+  @Input() width: number = 120;
   value: number | null = null;
   displayValue: string = '';
   isEditing: boolean = false;
