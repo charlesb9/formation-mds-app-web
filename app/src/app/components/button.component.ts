@@ -22,7 +22,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       border: 2px solid #dc3545;
     }
     .create {
-      background-color: #7ffc03;
+
+      background: linear-gradient(45deg, #73D494, #16B84E);
     }
   `]
 })
