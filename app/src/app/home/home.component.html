@@ -1,1 +1,9 @@
-<h1>Mes projets</h1>
+<div>
+    <h1 class="home-title">Mes projets</h1>
+
+    <div class="home-projects">
+        @for(project of projects; track $index) {
+            <projet-card [projet]="project"></projet-card>
+        }
+    </div>
+</div>

@@ -3,6 +3,9 @@ import { FormArray, FormControl, FormGroup } from "@angular/forms";
 export interface Project {
     id: string;
     title: string;
+    description: string;
+    startDate: Date;
+    endDate: Date;
     tasks: Task[];
     status: {name: string, color: string}[];
 };
@@ -23,8 +26,7 @@ export interface Task {
     status: string;
     start: string;
     end: string;
-}
-
+};
 
 export interface TaskForm {
     title: FormControl<string>;
@@ -32,4 +34,4 @@ export interface TaskForm {
     status: FormControl<string>;
     start: FormControl<string>;
     end: FormControl<string>; 
-}
+};

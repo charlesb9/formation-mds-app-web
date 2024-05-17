@@ -7,10 +7,10 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineStyle": true,
-          "inlineTemplate": true,
+          "inlineStyle": false,
+          "inlineTemplate": false,
           "skipTests": true,
-          "flat": true,
+          "flat": false,
           "standalone": true
         },
         "@schematics/angular:pipe": {
