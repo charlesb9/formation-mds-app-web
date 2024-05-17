@@ -1,24 +1,11 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-user-login',
-//   standalone: true,
-//   imports: [],
-//   template: `
-//     <p>
-//       user-login works!
-//     </p>
-//   `,
-//   styles: ``
-// })
-// export class UserLoginComponent {
-
-// }
-
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { FormsModule } from '@angular/forms';
 
+@NgModule({
+  imports: [FormsModule]
+})
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',

@@ -1,31 +1,19 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-user-details',
-//   standalone: true,
-//   imports: [],
-//   template: `
-//     <p>
-//       user-details works!
-//     </p>
-//   `,
-//   styles: ``
-// })
-// export class UserDetailsComponent {
-
-// }
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
+import { CommonModule } from '@angular/common';
 
-@Component({
-  selector: 'app-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.css']
+@NgModule({
+  declarations: [ UserDetailsComponent ],
+  imports: [CommonModule],
 })
-export class UserDetailComponent implements OnInit {
+@Component({
+  selector: 'app-user-details',
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.css']
+})
+export class UserDetailsComponent implements OnInit {
   user: User | null = null;
 
   constructor(private route: ActivatedRoute, private userService: UserService) {}

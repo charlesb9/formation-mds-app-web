@@ -1,25 +1,12 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-user-list',
-//   standalone: true,
-//   imports: [],
-//   template: `
-//     <p>
-//       user-list works!
-//     </p>
-//   `,
-//   styles: ``
-// })
-// export class UserListComponent {
-
-// }
-
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
 
+@NgModule({
+  declarations: [ UserListComponent ],
+  imports: [ CommonModule ],
+})
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
