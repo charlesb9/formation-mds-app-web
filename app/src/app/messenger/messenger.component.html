@@ -3,7 +3,7 @@
     <send-message (send)="send($event)"/>
   }@else { 
     <input class="border border-slate-600 p-2 m-2" type="text" [(ngModel)]="username">
-    <button (click)="login()">Connexion</button>
+    <app-button label="Connexion" (onClick)="login()" variant="danger"/>
   }
   @for (item of messages; track $index){
     <div @fadeIn class="p-4 rounded m-4 w-2/4" [ngClass]="item.username === 'dad' ? 'bg-slate-400 ml-16' : 'bg-slate-100' ">
