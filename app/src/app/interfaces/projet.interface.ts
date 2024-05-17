@@ -20,6 +20,10 @@ export interface ProjectForm {
     endDate: FormControl<Date>;
 };
 
+export interface StatusForm {
+    name: FormControl<string>;
+    color:  FormControl<string>;
+};
 export interface Task {
     title: string;
     description: string;

@@ -7,7 +7,7 @@ import { Project } from '../interfaces/projet.interface';
 export class ProjectService {
   projects: Project[] = [];
 
-  constructor() { }
+  constructor() {}
 
   get() {
     let value = localStorage.getItem("project");
