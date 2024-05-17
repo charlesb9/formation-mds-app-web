@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <button 
+    <button
       class="px-7 rounded-lg text-white"
       [ngClass]="variantClass"
       (click)="handleClick()">
@@ -15,10 +15,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   `,
   styles: [`
     .normal {
-      background-color: #007bff;
+      background: linear-gradient(45deg, #66AFFF, #007bff);
     }
     .danger {
-      background-color: #dc3545;
+      background: linear-gradient(45deg, #E6717C, #dc3545);
+      border: 2px solid #dc3545;
     }
   `]
 })
