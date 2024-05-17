@@ -73,14 +73,6 @@ exports.getTaskByUser = async (req, res) => {
     }
 };
 
-// Récupérer les tâches par projet
-exports.getTaskByProject = async (req, res) => {
-    try {
-        const tasks = await Task.find({ project: req.params.projectId }).populate("users project");
-        res.status(200).send(tasks);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-};
+
 
 module.exports = exports;
