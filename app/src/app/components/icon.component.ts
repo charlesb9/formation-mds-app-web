@@ -1,16 +1,17 @@
+import { CommonModule } from '@angular/common';
 import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-icon',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
-   {{icon}}
+  <div [innerHTML]="icon"></div>
   `,
   styles: ``
 })
 export class IconComponent {
-  @Input() iconName: string="add";
+  @Input({required : true}) iconName!: string;
   @Input() color: string = '#000000';
 
   get getIconName(): string {
