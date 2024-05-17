@@ -7,21 +7,22 @@ import { fromEvent } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '../interfaces/message.interface';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { ButtonComponent } from "../components/button.component";
 
 @Component({
-  selector: 'app-messenger',
-  standalone: true,
-  imports: [FormsModule, SendMessageComponent, CommonModule, ParseLinkPipe],
-  templateUrl: './messenger.component.html',
-  styleUrl: './messenger.component.scss',
-  animations: [
-    trigger('fadeIn', [
-        transition(':enter', [
-            style({ opacity: 0 }),
-            animate('150ms', style({ opacity: 1 }))
+    selector: 'app-messenger',
+    standalone: true,
+    templateUrl: './messenger.component.html',
+    styleUrl: './messenger.component.scss',
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('150ms', style({ opacity: 1 }))
+            ])
         ])
-    ])
-],
+    ],
+    imports: [FormsModule, SendMessageComponent, CommonModule, ParseLinkPipe, ButtonComponent]
 })
 export class MessengerComponent {
 
