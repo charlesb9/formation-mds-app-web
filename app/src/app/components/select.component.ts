@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -8,15 +8,15 @@ import { debounceTime } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   template: `
-    <div class="dropdown">
+    <div class="dropdown" [style.width.px]="width">
       <div class="dropdown-select" (click)="toggleDropdown()">
-        {{ selectedValue || 'Select an option' }}
+        {{ selectedValue || title }} <span class="arrow">&#x25BC;</span>
       </div>
-      <div class="dropdown-list" *ngIf="dropdownOpen">
-        <div class="dropdown-item" *ngIf="isSearch">
+      <div class="dropdown-list mt-2" *ngIf="dropdownOpen">
+        <div class="dropdown-item " *ngIf="isSearch">
           <input
             type="text"
-            placeholder="Rechercher..."
+            placeholder="Recherche..."
             [formControl]="searchControl"
           />
         </div>
@@ -35,14 +35,21 @@ import { debounceTime } from 'rxjs';
       .dropdown {
         position: relative;
         display: inline-block;
-        width: 200px;
+        margin: 10px;
       }
+
       .dropdown-select {
         padding: 10px;
         border: 1px solid #ccc;
         cursor: pointer;
         background-color: #fff;
+        border-radius: 10px;
       }
+
+      .arrow {
+        float: right;
+      }
+
       .dropdown-list {
         position: absolute;
         top: 100%;
@@ -53,7 +60,9 @@ import { debounceTime } from 'rxjs';
         z-index: 1000;
         max-height: 200px;
         overflow-y: auto;
+        border-radius: 10px;
       }
+
       .dropdown-list input {
         width: calc(100% - 20px);
         padding: 10px;
@@ -61,22 +70,28 @@ import { debounceTime } from 'rxjs';
         border-bottom: 1px solid #ccc;
         box-sizing: border-box;
       }
+
       .dropdown-item {
         padding: 10px;
         cursor: pointer;
       }
+
       .dropdown-item:hover {
         background-color: #f0f0f0;
       }
+
     `,
   ],
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent {
   @Input() data: string[] = [];
+  @Input() width: number = 200;
   @Input() isSearch: boolean = false;
+  @Input() title: string = 'Recherche';
   filteredData: string[] = [];
   selectedValue: string | null = null;
   dropdownOpen: boolean = false;
+
   searchControl = new FormControl();
 
   ngOnInit() {
