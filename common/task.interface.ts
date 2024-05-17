@@ -9,7 +9,12 @@ export interface Task {
 	createdAt: Date;
 	updatedAt: Date;
 	endTask: Date;
-	status: "pending" | "in-progress" | "completed" | "canceled" | "archived";
+	status: Status;
 	project: Project;
 	priority: "low" | "medium" | "high";
+}
+
+export interface Status {
+	title: string;
+	color: string;
 }
