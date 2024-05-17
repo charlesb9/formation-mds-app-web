@@ -1,0 +1,50 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="title">Titre:</label>
+        <input id="title" formControlName="title">
+        <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched">
+            Le titre est requis.
+        </div>
+    </div>
+
+    <div formArrayName="users">
+        <label for="user">Utilisateurs:</label>
+        <div *ngFor="let user of users.controls; let i=index" [formGroupName]="i">
+            <input formControlName="name" placeholder="User Name">
+            <button type="button" (click)="removeUser(i)">Supprimer</button>
+        </div>
+    </div>
+    <button type="button" id="btn-btn" (click)="addUser()">Ajouter Utilisateur</button>
+
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+    </div>
+
+    <div>
+        <label for="endTask">Date de fin:</label>
+        <input id="endTask" type="date" formControlName="endTask">
+    </div>
+
+    <div>
+        <label for="status">Statut:</label>
+        <input type="text" name="status" id="status">
+        <input type="color">
+    </div>
+
+    <div>
+        <label for="project">Projet:</label>
+        <input id="project" formControlName="project">
+    </div>
+
+    <div>
+        <label for="priority">Priorité:</label>
+        <select id="priority" formControlName="priority">
+            <option value="low">Faible</option>
+            <option value="medium">Moyenne</option>
+            <option value="high">Élevée</option>
+        </select>
+    </div>
+
+    <button type="submit" [disabled]="taskForm.invalid">Ajouter Tâche</button>
+</form>
