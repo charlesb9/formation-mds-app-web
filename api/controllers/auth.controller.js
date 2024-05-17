@@ -1,59 +1,54 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const { connect } = require('../config/database'); // Assurez-vous du bon chemin vers le fichier database.js
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
+const User = require("../models/user.model");
 
-dotenv.config({ path: __dirname + '/../../.env.local' });
+dotenv.config({ path: __dirname + "/../../.env.local" });
 
 exports.login = async (req, res) => {
+  try {
     const { email, password } = req.body;
-
-    try {
-        // Connectez-vous à la base de données
-        const db = await connect();
-
-        // Recherchez l'utilisateur par email
-        const user = await db.collection('users').findOne({ email });
-
-        if (!user) {
-            return res.status(401).send('Utilisateur non trouvé');
-        }
-
-        // Vérifiez le mot de passe (assurez-vous de sécuriser les mots de passe en les hachant dans la base de données)
-        if (user.password !== password) {
-            return res.status(401).send('Mot de passe incorrect');
-        }
-
-        // Créez un token JWT
-        const token = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.send({ email, token });
-    } catch (error) {
-        console.error('Erreur lors de la connexion de l\'utilisateur:', error);
-        res.status(500).send('Erreur interne du serveur');
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send("User not found");
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).send("Invalid credentials");
+    }
+
+    const token = jwt.sign(
+      { id: user._id, roles: user.roles },
+      "your_jwt_secret"
+    );
+    res.status(200).send({ token });
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
 exports.register = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        // Connectez-vous à la base de données
-        const db = await connect();
 
-        // Vérifiez si l'utilisateur existe déjà
-        const existingUser = await db.collection('users').findOne({ email });
-        if (existingUser) {
-            return res.status(400).send('Utilisateur déjà enregistré');
-        }
+  try {
+    const { email, password, firstName, lastName } = req.body;
+    console.log(req.body);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      roles: ["user"],
+    });
 
-        // Enregistrez le nouvel utilisateur (ajoutez des vérifications et un hachage de mot de passe pour plus de sécurité)
-        await db.collection('users').insertOne({ email, password });
-
-        res.send({ email });
-    } catch (error) {
-        console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
-        res.status(500).send('Erreur interne du serveur');
-    }
+    console.log("obj user",user);
+    await user.save();
+    res.status(201).send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 };
 
 module.exports = exports;
