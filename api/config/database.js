@@ -8,7 +8,7 @@ const dbName = process.env.DB_NAME;
 
 // Fonction pour se connecter à la base de données
 async function connectToDatabase() {
-    const client = new MongoClient(url);
+    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
     return client;
 }
