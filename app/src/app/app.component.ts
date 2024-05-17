@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+import { TaskService } from './taches/task.service';
 
 
 @Component({
@@ -27,6 +28,8 @@ import { AuthService } from './auth/auth.service';
     imports:[RouterOutlet, CommonModule, RouterModule]
 })
 export class AppComponent {
+  service = inject(TaskService);
+
 
   authService = inject(AuthService);
   isAuth = false;
