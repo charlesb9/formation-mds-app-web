@@ -2,13 +2,13 @@
     <h2>Create User</h2>
     <form (ngSubmit)="createUser()">
         <div class="form-group">
-            <label for="firstname">First Name:</label>
-            <input type="text" id="firstname" [(ngModel)]="user.firstname" name="firstname" required
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" [(ngModel)]="user.firstName" name="firstname" required
                 class="form-control">
         </div>
         <div class="form-group">
-            <label for="lastname">Last Name:</label>
-            <input type="text" id="lastname" [(ngModel)]="user.lastname" name="lastname" required class="form-control">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastname" required class="form-control">
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
@@ -23,6 +23,6 @@
             <label for="roles">Roles:</label>
             <input type="text" id="roles" [(ngModel)]="user.roles" name="roles" required class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary">Create User</button>
+        <button type="submit" class="btn btn-primary bg-black text-white">Create User</button>
     </form>
 </div>

@@ -2,24 +2,31 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
-@NgModule({
-  declarations: [ UserListComponent ],
-  imports: [ CommonModule ],
-})
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.css'],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((data: User[]) => {
       this.users = data;
     });
+  }
+
+  showUserDetails(id: string | undefined): void {
+    if (id) {
+      this.router.navigate(['/user', id]);
+    }
   }
 }
