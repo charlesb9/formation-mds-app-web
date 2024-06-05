@@ -8,19 +8,20 @@ import { IconComponent } from './icon.component';
   imports: [CommonModule, IconComponent],
   template: `
     <div
-      [ngClass]="variantClass"
-      class="flex items-center justify-center rounded-lg px-3"
+      [ngClass]="!disabled ? variantClass : null"
+      class="flex items-center justify-center text-white rounded-lg px-3"
     >
-      @if(iconPrefix) {
+      @if(iconPrefix && !disabled) {
         <app-icon [iconName]="iconPrefix" />
       }
       <button
+      [disabled]=disabled
         class="rounded-lg text-white bg-transparent"
         (click)="handleClick()"
       >
         {{ label }}
       </button>
-      @if(iconSuffix) {
+      @if(iconSuffix && !disabled) {
         <app-icon iconName="add" />
       }
     </div>
@@ -43,7 +44,7 @@ import { IconComponent } from './icon.component';
 export class ButtonComponent {
   @Input() label: string = 'Click me';
   @Input() variant: 'normal' | 'danger' | 'create' = 'normal';
-  @Input() disabled?: boolean;
+  @Input() disabled?: boolean = false;
   @Input() iconPrefix?: string;
   @Input() iconSuffix?: string;
   @Output() onClick = new EventEmitter<void>();
