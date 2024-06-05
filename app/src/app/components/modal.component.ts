@@ -25,7 +25,7 @@ import { IconComponent } from './icon.component';
     `
       .modal {
         z-index: 100;
-        position: absolute;
+        position: fixed;
         top: 0;
         width: 100vw;
         height: 120vh;

@@ -1,29 +1,30 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 
 export interface Project {
-    _id: string;
+    _id?: string;
     title: string;
     description: string;
     startDate: Date;
     endDate: Date;
     tasks: Task[];
-    status: {name: string, color: string}[];
+    status: {title: string, color: string}[];
+};
+
+export interface StatusForm {
+    title: FormControl<string>;
+    color:  FormControl<string>;
 };
 
 export interface ProjectForm {
-    _id: FormControl<string>;
     title: FormControl<string>;
     description: FormControl<string>;
     tasks: FormArray<FormGroup<TaskForm>>;
-    status: FormArray<FormControl<{name: string, color: string}>>;
+    status: FormArray<FormGroup<StatusForm>>;
     startDate: FormControl<Date>;
     endDate: FormControl<Date>;
 };
 
-export interface StatusForm {
-    name: FormControl<string>;
-    color:  FormControl<string>;
-};
+
 export interface Task {
     title: string;
     description: string;

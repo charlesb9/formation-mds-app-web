@@ -20,15 +20,19 @@ export class ProjectService {
 
   getOne(id: string): Observable<Project> {
     return this.http.get<{data: Project}>(`${environment.apiUrl}/project/${id}`).pipe(
-      map((response) => response.data),
+      map((response: any) => response.data),
     );
   }
 
-  save(project: Project) {
-    this.projects.push(project);
-    this.http.post(`${environment.apiUrl}/project`, project).subscribe();
+  save(project: Project): Observable<Project> {
+    return this.http.post(`${environment.apiUrl}/project`, project).pipe(
+      map((response: any) => response.data),
+    );
   }
-  addStatus() {
-    
+
+  update(project: Project): Observable<Project> {
+    return this.http.put(`${environment.apiUrl}/project/${project._id}`, project).pipe(
+      map((response: any) => response.data),
+    );
   }
 }

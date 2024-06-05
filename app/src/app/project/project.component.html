@@ -39,10 +39,10 @@
       <div class="modal-inner-content">
         <form class="form-project">
           <label for="title">Title</label>
-          <input type="text" id="title" [formControl]="statusForm.controls.name"/>
+          <input type="text" id="title" [formControl]="statusForm.controls.title"/>
           <label for="color">Colors</label>
           <input type="text" id="color" [formControl]="statusForm.controls.color"/>
-          <button (click)="saveStatus($event)">Add</button>
+          <app-button (click)="saveStatus($event)" variant="create" label="Add status"></app-button>
         </form>
       </div>
 </app-modal>

@@ -38,7 +38,6 @@ export class ProjectComponent {
   };
   
   projectForm = new FormGroup<ProjectForm>({
-    _id: new FormControl("", {nonNullable: true}),
     title: new FormControl("",{nonNullable : true}),
     description: new FormControl("",{nonNullable : true}),
     tasks: new FormArray<FormGroup<TaskForm>>([]),
@@ -48,7 +47,7 @@ export class ProjectComponent {
   }, {updateOn: 'blur'})
 
   statusForm = new FormGroup<StatusForm>({
-    name: new FormControl("", {nonNullable: true}),
+    title: new FormControl("", {nonNullable: true}),
     color: new FormControl("", {nonNullable: true})
   }, {updateOn: 'blur'})
 
@@ -68,10 +67,11 @@ export class ProjectComponent {
     })
   }
 
-  addStatus(status?: {name: string, color: string}) {
-    let control : FormControl<{name: string, color: string}> = new FormControl({name: "", color: ""}, {nonNullable: true});
-    if (status) control.patchValue(status);
-    this.projectForm.controls.status.push(control);
+  addStatus(status: {title: string, color: string}) {
+    this.project.status.push(status);
+    this.projectService.update(this.project).subscribe((project) => {
+      this.project = project;
+    });
   }
 
   setShowAddProject() {
@@ -102,7 +102,9 @@ export class ProjectComponent {
 
   save(event: Event) {
     event.preventDefault();
-    this.projectService.save(this.projectForm.getRawValue());
+    this.projectService.save(this.projectForm.getRawValue()).subscribe((project) => {
+      console.log(project);
+    });
     this.setShowAddProject();
     this.reset();
   }
@@ -112,6 +114,7 @@ export class ProjectComponent {
     this.showStatusModal = !this.showStatusModal;
     if (!this.showStatusModal) this.reset();
   }
+
   saveStatus(event: Event) {
     event.preventDefault();
     this.addStatus(this.statusForm.getRawValue());
