@@ -1,0 +1,16 @@
+.user-list-container {
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}

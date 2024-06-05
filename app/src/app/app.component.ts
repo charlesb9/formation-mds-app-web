@@ -17,6 +17,8 @@ import { AuthService } from './auth/auth.service';
         @if(isAuth){
           <a routerLink="/messenger">Chat</a>
           <a routerLink="/projet">Projet</a>
+          <a routerLink="/register">Inscription</a>
+          <a routerLink="/users">Liste des utilisateurs</a>
           <a (click)="authService.logout()" >Déconnexion</a>
         }@else {
           <a routerLink="/login">Connexion</a>
