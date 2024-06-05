@@ -52,4 +52,20 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
+
+// Créer un avatar pour un utilisateur
+exports.createAvatar = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).send("User not found");
+        }
+        user.avatar = req.file.path;
+        await user.save();
+        res.status(201).send(user);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
 module.exports = exports;
