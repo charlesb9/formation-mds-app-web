@@ -37,7 +37,6 @@ export class LoginComponent {
   onDateSelected(selectedDate: string) {
     const [day, month, year] = selectedDate.split(' ');
     const formattedDate = `${day}-${month}-${year}`;
-    console.log('Date sélectionnée:', formattedDate);
   }
 
   ngOnInit(){
