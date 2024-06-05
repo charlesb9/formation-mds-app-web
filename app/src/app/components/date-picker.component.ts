@@ -95,7 +95,7 @@ import 'dayjs/locale/fr';
 })
 export class DatePickerComponent {
 
-  @Output() dateSelected = new EventEmitter<Date>();
+  @Output() selectedDateChange = new EventEmitter<Date>();
   @Input() formatLetter: boolean = false;
   @Input() selectedDate: Date = new Date();
 
@@ -204,7 +204,7 @@ export class DatePickerComponent {
     let date = selectedMonth.date(dayInfo.day);
     this.toggleDatePicker();
     this.selectedDate = date.toDate();
-    this.dateSelected.emit(selectedMonth.date(dayInfo.day).toDate());
+    this.selectedDateChange.emit(selectedMonth.date(dayInfo.day).toDate());
     
   }
 }
