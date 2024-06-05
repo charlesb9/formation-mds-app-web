@@ -62,3 +62,15 @@ exports.deleteProject = async (req, res) => {
         res.status(500).json({ success: false, message: "Erreur lors de la suppression du projet", error: error.message });
     }
 };
+
+// Récupérer les tâches par projet
+exports.getTaskByProject = async (req, res) => {
+    try {
+        const tasks = await Task.find({ project: req.params.projectId }).populate("users project");
+        res.status(200).send(tasks);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+};
+
+module.exports = exports;

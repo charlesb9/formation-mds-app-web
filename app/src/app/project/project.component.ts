@@ -1,4 +1,5 @@
-import { ProjectForm, Task, TaskForm } from './../interfaces/projet.interface';
+import { JsonPipe } from '@angular/common';
+import { ProjectForm, Task, TaskForm, StatusForm } from './../interfaces/projet.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
@@ -15,6 +16,7 @@ import { ProjectService } from './project.service';
 export class ProjectComponent {
 
   showProjectModal = false;
+  showStatusModal = false;
   projectService = inject(ProjectService);
   randomId =  Math.floor(Math.random() * 1000000).toString();
   
@@ -26,6 +28,11 @@ export class ProjectComponent {
     status: new FormArray<FormControl<{name: string, color: string}>>([]),
     startDate: new FormControl(new Date(), {nonNullable: true}),
     endDate: new FormControl(new Date(), {nonNullable: true})
+  }, {updateOn: 'blur'})
+
+  statusForm = new FormGroup<StatusForm>({
+    name: new FormControl("", {nonNullable: true}),
+    color: new FormControl("", {nonNullable: true})
   }, {updateOn: 'blur'})
 
   ngOnInit() {
@@ -81,4 +88,15 @@ export class ProjectComponent {
     this.reset();
   }
   
+  /** Modal Status */
+  setShowAddStatus() {
+    this.showStatusModal = !this.showStatusModal;
+    if (!this.showStatusModal) this.reset();
+  }
+  saveStatus(event: Event) {
+    event.preventDefault();
+    this.addStatus(this.statusForm.getRawValue());
+    this.setShowAddStatus();
+    this.statusForm.reset();
+  }
 }
