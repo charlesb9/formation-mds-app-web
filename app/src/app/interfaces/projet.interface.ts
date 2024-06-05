@@ -1,4 +1,5 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { Status } from "../../../../common/project.interface";
 
 export interface Project {
     _id?: string;
@@ -19,11 +20,10 @@ export interface ProjectForm {
     title: FormControl<string>;
     description: FormControl<string>;
     tasks: FormArray<FormGroup<TaskForm>>;
-    status: FormArray<FormGroup<StatusForm>>;
+    status: FormArray<FormControl<Status>>;
     startDate: FormControl<Date>;
     endDate: FormControl<Date>;
 };
-
 
 export interface Task {
     title: string;

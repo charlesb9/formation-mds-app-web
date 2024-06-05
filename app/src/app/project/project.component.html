@@ -13,6 +13,18 @@
       <app-button (onClick)="setShowAddStatus()" label="Add status"></app-button>
     </div>
   </div>
+  <div class="flex gap-2 nowrap overflow-scroll">
+    @for(status of project.status; track $index) {
+      <div class="column">
+        <div class="flex justify-center gap-4 items-center relative mt-2">
+          <div class="w-6 h-6 rounded-full border border-slate-300" [style.background]="status.color"></div>
+          <div class="font-bold text-2xl text-center">{{ status.title }}</div>
+          <app-button class="absolute top-0 right-2" variant="create" label="+"></app-button>
+        </div>
+        <!--Show tasks-->
+      </div>
+    }
+  </div>
 </section>
 
 @if (showProjectModal) {
@@ -35,7 +47,6 @@
 
 @if (showStatusModal) {
   <app-modal [show]="showProjectModal" (close)="setShowAddStatus()" title="Add status">
-      
       <div class="modal-inner-content">
         <form class="form-project">
           <label for="title">Title</label>

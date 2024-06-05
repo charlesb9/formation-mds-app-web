@@ -1,4 +1,5 @@
 import { ProjectForm, Task, TaskForm, StatusForm, Project } from './../interfaces/projet.interface';
+import { Status } from './../../../../common/project.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
@@ -41,7 +42,7 @@ export class ProjectComponent {
     title: new FormControl("",{nonNullable : true}),
     description: new FormControl("",{nonNullable : true}),
     tasks: new FormArray<FormGroup<TaskForm>>([]),
-    status: new FormArray<FormControl<{name: string, color: string}>>([]),
+    status: new FormArray<FormControl<Status>>([]),
     startDate: new FormControl(new Date(), {nonNullable: true}),
     endDate: new FormControl(new Date(), {nonNullable: true})
   }, {updateOn: 'blur'})
