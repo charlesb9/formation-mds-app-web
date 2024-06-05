@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Task = require("./task.model");
-const User = require("./user.model");
-const path = require("path");
+
+const statusSchema = new Schema({
+  title: { type: String, required: true },
+  color: { type: String },
+});
 
 const projectSchema = new Schema({
   title: { type: String, required: true },
@@ -12,11 +14,7 @@ const projectSchema = new Schema({
   tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
   users: [{ type: Schema.Types.ObjectId, ref: "User" }],
   managers: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  status: {
-    type: String,
-    enum: ["pending", "in-progress", "completed", "canceled", "archived"],
-    default: "pending",
-  },
+  status: [statusSchema],
 });
 
 const Project = mongoose.model("Project", projectSchema);
