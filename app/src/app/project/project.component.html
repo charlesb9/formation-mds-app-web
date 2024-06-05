@@ -1,67 +1,52 @@
 <section class="p-4">
-  <div class="font-bold text-4xl">{{ projet.title }}</div>
-  <div class="my-6 mx-4 flex gap-1">
-    <input
-      class="bg-slate-100 border border-slate-300 rounded w-full py-[5px]"
-      type="text"
-    />
-    <button >Discard</button>
-    <button >Save</button>
-    <button (click)="setShowAddProject()">Add project</button>
+  <div class="container mx-auto p-4">
+    <div class="font-bold text-4xl text-center mb-4">{{ projetForm.controls.title.value }}</div>
+    <p class="text-lg text-gray-700 text-center">{{ projetForm.controls.description.value }}</p>
+    
+    <div class="my-6 mx-4 flex gap-2 justify-center">
+      <input
+        class="bg-slate-100 border border-slate-300 rounded w-56 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        type="text"
+        placeholder="Search..."
+      />
+      <button 
+        class="text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
+        (click)="setShowAddProject()"
+      >
+        Add project
+      </button>
+      <button 
+        class="text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none"
+        (click)="setShowAddStatus()"
+      >
+        Add status
+      </button>
+    </div>
   </div>
+
   <div class="container flex gap-3">
     <div class="column">
       <div class="title">
-        <p>In Progress</p>
-        <button class="bg-none">- - -</button>
-      </div>
-      <div class="description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-          corporis, aliquid quod perspiciatis earum adipisci.
-        </p>
-      </div>
-      <div class="tasks"></div>
-      <div class="addItem">
-        <button>+ Add Item</button>
-      </div>
-    </div>
-    <div class="column">
-      <div class="title">
-        <p>In Progress</p>
-        <button class="bg-none">- - -</button>
-      </div>
-      <div class="description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-          corporis, aliquid quod perspiciatis earum adipisci.
-        </p>
+        <button 
+          *ngFor="let status of projetForm.controls.status.controls" 
+          [style.background-color]= "status.value.color"
+          class=""
+        >
+          {{ status.value.name }}
+        </button> 
       </div>
       <div class="tasks">
-        
+        <div>
+          <p></p>
+        </div>
       </div>
-      <div class="addItem">
-        <button>+ Add Item</button>
-      </div>
-    </div>
-    <div class="column">
-      <div class="title">
-        <p>In Progress</p>
-        <button class="bg-none">- - -</button>
-      </div>
-      <div class="description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-          corporis, aliquid quod perspiciatis earum adipisci.
-        </p>
-      </div>
-      <div class="tasks"></div>
       <div class="addItem">
         <button>+ Add Item</button>
       </div>
     </div>
   </div>
-  <button (click)="setShowAddStatus()">Add status</button>
+
+  
 </section>
 
 @if (showProjectModal) {
@@ -107,40 +92,3 @@
     </div>
   </div>
 }
-<section class="bg-slate-100 p-4 flex flex-col items-center gap-2">
-  <form [formGroup]="projetForm" class="flex flex-col gap-2 w-full max-w-xl mx-auto">
-    <label>Titre</label>
-    <input class="w-full h-10" [formControl]="projetForm.controls.title"/>
-    <label>Statuts</label>
-    @for(control of projetForm.controls.status.controls; track $index) {
-      <input class="w-full h-10" [formControl]="control"/>
-    }
-    <button (click)="addStatus()">Ajouter un statut</button>
-    @for(form of projetForm.controls.tasks.controls; track $index) {
-      <div class="flex flex-col gap-2 w-full border rounded p-2 bg-white">
-        <label>Titre</label>  
-        <input type="text" [formControl]="form.controls.title"/>
-          <label>Déscription</label>
-          <textarea type="text" [formControl]="form.controls.description"></textarea>
-          <label>Statut</label>
-          <select>
-            @for(option of projetForm.controls.status.value; track $index) {
-              <option [value]="option">{{ option }}</option>
-            }
-          </select>
-          <div class="flex gap-2">
-            <div>
-              <label>Début</label>
-              <input type="date" [formControl]="form.controls.start" />
-            </div>
-            <div>
-              <label>Fin</label>
-              <input type="date" [formControl]="form.controls.end" />
-            </div>
-          </div>
-      </div>
-    }
-    <button (click)="addTask()">Ajouter une tâche</button>
-  </form>
-  <!-- <button class="mx-auto" (click)="update()" [disabled]="!changed">Sauvegarder</button> -->
-</section>
