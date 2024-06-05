@@ -3,18 +3,28 @@ import { AuthService } from '../auth.service';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from "../../components/button.component";
 import { EuroInputComponent } from "../../components/euro-input.component";
+import { SelectComponent } from "../../components/select.component";
 
 @Component({
     selector: 'app-login',
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    imports: [ButtonComponent, EuroInputComponent]
+    imports: [ButtonComponent, EuroInputComponent, SelectComponent]
 })
 export class LoginComponent {
 
   authService = inject(AuthService);
   router = inject(Router);
+
+  users = [
+    { id: 1, name: 'John', lastname: 'Doe' },
+    { id: 2, name: 'Jane', lastname: 'Smith' },
+  ];
+  
+  displayUser(user: any): string {
+    return `${user.name} ${user.lastname}`;
+  }
 
   ngOnInit(){
     this.authService.isAuth$.subscribe(e => {

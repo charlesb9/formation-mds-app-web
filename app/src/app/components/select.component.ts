@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs';
   template: `
     <div class="dropdown" [style.width.px]="width">
       <div class="dropdown-select" (click)="toggleDropdown()">
-        {{ selectedValue || title }} <span class="arrow">&#x25BC;</span>
+        {{ selectedDisplayValue || title }} <span class="arrow">&#x25BC;</span>
       </div>
       <div class="dropdown-list mt-2" *ngIf="dropdownOpen">
         <div class="dropdown-item " *ngIf="isSearch">
@@ -25,7 +25,7 @@ import { debounceTime } from 'rxjs';
           (click)="selectItem(item)"
           class="dropdown-item"
         >
-          {{ item }}
+          {{ displayFunction(item) }}
         </div>
       </div>
     </div>
@@ -79,15 +79,15 @@ import { debounceTime } from 'rxjs';
       .dropdown-item:hover {
         background-color: #f0f0f0;
       }
-
     `,
   ],
 })
 export class SelectComponent {
-  @Input() data: string[] = [];
+  @Input() data: any[] = [];
   @Input() width: number = 200;
   @Input() isSearch: boolean = false;
   @Input() title: string = 'Recherche';
+  @Input() displayFunction: (item: any) => string = (item) => item.toString();
   filteredData: string[] = [];
   selectedValue: string | null = null;
   dropdownOpen: boolean = false;
@@ -96,9 +96,15 @@ export class SelectComponent {
 
   ngOnInit() {
     this.filteredData = this.data;
-    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
-      this.searchData(value);
-    });
+    this.searchControl.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe((value) => {
+        this.searchData(value);
+      });
+  }
+
+  get selectedDisplayValue(): string {
+    return this.selectedValue ? this.displayFunction(this.selectedValue) : '';
   }
 
   toggleDropdown() {
@@ -117,7 +123,7 @@ export class SelectComponent {
     this.filteredData = !value
       ? this.data
       : this.data.filter((item) =>
-        item.toLowerCase().includes(value.toLowerCase())
-      );
+          this.displayFunction(item).toLowerCase().includes(value.toLowerCase())
+        );
   }
 }
