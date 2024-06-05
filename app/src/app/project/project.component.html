@@ -1,7 +1,7 @@
 <section class="p-4">
   <div class="container mx-auto p-4">
-    <div class="font-bold text-4xl text-center mb-4">{{ projetForm.controls.title.value }}</div>
-    <p class="text-lg text-gray-700 text-center">{{ projetForm.controls.description.value }}</p>
+    <div class="font-bold text-4xl text-center mb-4">{{ project.title }}</div>
+    <p class="text-lg text-gray-700 text-center">{{ projectForm.controls.description.value }}</p>
     
     <div class="my-6 mx-4 flex gap-2 justify-center">
       <input
@@ -9,75 +9,25 @@
         type="text"
         placeholder="Search..."
       />
-      <button 
-        class="text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"
-        (click)="setShowAddProject()"
-      >
-        Add project
-      </button>
-      <button 
-        class="text-white py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none"
-        (click)="setShowAddStatus()"
-      >
-        Add status
-      </button>
-    </div>
-=======
-  <div class="font-bold text-4xl">{{ project.title }}</div>
-  <div class="my-6 mx-4 flex gap-1">
-    <input
-      class="bg-slate-100 border border-slate-300 rounded w-full py-[5px]"
-      type="text"
-    />
-    <button >Discard</button>
-    <button >Save</button>
-    <app-button (onClick)="setShowAddProject()" variant="create" label="Add project"></app-button>
->>>>>>> 8b3cb6319e2bd36d8d3f856c77fb0d77e711c534
-  </div>
-
-  <div class="container flex gap-3">
-    <div class="column">
-      <div class="title">
-        <button 
-          *ngFor="let status of projetForm.controls.status.controls" 
-          [style.background-color]= "status.value.color"
-          class=""
-        >
-          {{ status.value.name }}
-        </button> 
-      </div>
-      <div class="tasks">
-        <div>
-          <p></p>
-        </div>
-      </div>
-      <div class="addItem">
-        <button>+ Add Item</button>
-      </div>
+      <app-button (onClick)="setShowAddProject()" variant="create" label="Add project"></app-button>
+      <app-button (onClick)="setShowAddStatus()" label="Add status"></app-button>
     </div>
   </div>
-
-  
 </section>
 
 @if (showProjectModal) {
-  <div class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Add Project</h2>
-        <p class="x-mark" (click)="setShowAddProject()">X</p>
-      </div>
-      <div class="modal-body">
-        <form>
+  <app-modal [show]="showProjectModal" (close)="setShowAddProject()" title="Add project">
+    <div class="modal-inner-content">
+      <form class="form-project">
         <label for="title">Title</label>
-        <input type="text" id="title" [formControl]="projetForm.controls.title"/>
+        <input type="text" id="title" [formControl]="projectForm.controls.title"/>
         <label for="description">Description</label>
-        <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
-        <label for="start">Start date</label>
-        <app-date-picker [formControl]="projetForm.controls.startDate"></app-date-picker>
-        <label for="end">End date</label>
-        <app-date-picker [formControl]="projetForm.controls.endDate"></app-date-picker>
-        <app-button (click)="save($event)" variant="create" label="Create project"></app-button>
+        <input type="text" id="description" [formControl]="projectForm.controls.description"/>
+        <label for="status">Start date</label>
+        <app-date-picker></app-date-picker>
+        <label for="status">End date</label>
+        <app-date-picker></app-date-picker>
+        <app-button (click)="save($event)" variant="create" label="Add project"></app-button>
       </form>
     </div>
   </app-modal>

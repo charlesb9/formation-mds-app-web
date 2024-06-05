@@ -37,7 +37,7 @@ export class ProjectComponent {
     status: []
   };
   
-  projetForm = new FormGroup<ProjectForm>({
+  projectForm = new FormGroup<ProjectForm>({
     _id: new FormControl("", {nonNullable: true}),
     title: new FormControl("",{nonNullable : true}),
     description: new FormControl("",{nonNullable : true}),
@@ -71,7 +71,7 @@ export class ProjectComponent {
   addStatus(status?: {name: string, color: string}) {
     let control : FormControl<{name: string, color: string}> = new FormControl({name: "", color: ""}, {nonNullable: true});
     if (status) control.patchValue(status);
-    this.projetForm.controls.status.push(control);
+    this.projectForm.controls.status.push(control);
   }
 
   setShowAddProject() {
@@ -80,11 +80,11 @@ export class ProjectComponent {
   }
 
   reset() {
-    this.projetForm.reset();
+    this.projectForm.reset();
   }
 
   get projet() {
-    return this.projetForm.value;
+    return this.projectForm.value;
   }
 
   addTask(task?: Task) {
@@ -96,13 +96,13 @@ export class ProjectComponent {
       end: new FormControl("", {nonNullable: true})
     })
     if (task) form.patchValue(task);
-    this.projetForm.controls.tasks.push(form);
+    this.projectForm.controls.tasks.push(form);
   }
 
 
   save(event: Event) {
     event.preventDefault();
-    this.projectService.save(this.projetForm.getRawValue());
+    this.projectService.save(this.projectForm.getRawValue());
     this.setShowAddProject();
     this.reset();
   }
