@@ -70,4 +70,8 @@ export class UserService {
     this.loggedIn = false;
     this.router.navigate(['/login']);
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }
