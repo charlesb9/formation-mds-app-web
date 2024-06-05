@@ -69,17 +69,17 @@
       </div>
       <div class="modal-body">
         <form>
-          <label for="title">Title</label>
-          <input type="text" id="title" [formControl]="projetForm.controls.title"/>
-          <label for="description">Description</label>
-          <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
-          <label for="start">Start date</label>
+        <label for="title">Title</label>
+        <input type="text" id="title" [formControl]="projetForm.controls.title"/>
+        <label for="description">Description</label>
+        <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
+        <label for="start">Start date</label>
         <app-date-picker [formControl]="projetForm.controls.startDate"></app-date-picker>
-          <label for="end">End date</label>
+        <label for="end">End date</label>
         <app-date-picker [formControl]="projetForm.controls.endDate"></app-date-picker>
         <app-button (click)="save($event)" variant="create" label="Create project"></app-button>
-        </form>
-      </div>
+      </form>
+    </div>
   </app-modal>
 }
 
