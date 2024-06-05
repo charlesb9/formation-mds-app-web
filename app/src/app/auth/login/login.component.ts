@@ -4,18 +4,22 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from "../../components/button.component";
 import { EuroInputComponent } from "../../components/euro-input.component";
 import { SelectComponent } from "../../components/select.component";
+import { DatePickerComponent } from "../../components/date-picker.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-login',
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
-    imports: [ButtonComponent, EuroInputComponent, SelectComponent]
+    imports: [ButtonComponent, EuroInputComponent, SelectComponent, DatePickerComponent, CommonModule]
 })
 export class LoginComponent {
 
   authService = inject(AuthService);
   router = inject(Router);
+
+  selectedDate: string = '';
 
   users = [
     { id: 1, name: 'John', lastname: 'Doe' },
@@ -24,6 +28,14 @@ export class LoginComponent {
   
   displayUser(user: any): string {
     return `${user.name} ${user.lastname}`;
+  }
+
+  
+
+  onDateSelected(selectedDate: string) {
+    const [day, month, year] = selectedDate.split(' ');
+    const formattedDate = `${day}-${month}-${year}`;
+    console.log('Date sélectionnée:', formattedDate);
   }
 
   ngOnInit(){

@@ -29,4 +29,7 @@
     [displayFunction]="displayUser"
   ></app-select>
   <app-euro-input [width]="500" />
+  <app-date-picker
+    (dateSelected)="onDateSelected($event)"
+  ></app-date-picker>
 </div>
