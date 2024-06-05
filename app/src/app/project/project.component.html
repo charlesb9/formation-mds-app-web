@@ -34,14 +34,10 @@
 }
 
 @if (showStatusModal) {
-  <div class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Add Status</h2>
-        <p class="x-mark" (click)="setShowAddStatus()">X</p>
-      </div>
-      <div class="modal-body">
-        <form>
+  <app-modal [show]="showProjectModal" (close)="setShowAddStatus()" title="Add status">
+      
+      <div class="modal-inner-content">
+        <form class="form-project">
           <label for="title">Title</label>
           <input type="text" id="title" [formControl]="statusForm.controls.name"/>
           <label for="color">Colors</label>
@@ -49,6 +45,5 @@
           <button (click)="saveStatus($event)">Add</button>
         </form>
       </div>
-    </div>
-  </div>
+</app-modal>
 }
