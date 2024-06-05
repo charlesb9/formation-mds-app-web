@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
@@ -11,18 +11,17 @@ import 'dayjs/locale/fr';
   template: `
     <input
       type="text"
-      [value]="defaultDate || selectedDate"
-      [(ngModel)]="selectedDate"
+      [value]="dateString"
       (click)="toggleDatePicker()"
     />
     <div *ngIf="showDatePicker" class="date-picker ">
       <div class="date-picker-header">
-        <button class="prev-month" (click)="prevMonth()">&lt;</button>
+        <button class="prev-month" (click)="prevMonth($event)">&lt;</button>
         <span class="current-month">{{ getCurrentMonth() }}</span>
-        <button class="next-month" (click)="nextMonth()">&gt;</button>
-        <button class="prev-year" (click)="prevYear()">&lt;</button>
+        <button class="next-month" (click)="nextMonth($event)">&gt;</button>
+        <button class="prev-year" (click)="prevYear($event)">&lt;</button>
         <span class="current-year">{{ currentYear }}</span>
-        <button class="next-year" (click)="nextYear()">&gt;</button>
+        <button class="next-year" (click)="[nextYear($event)]">&gt;</button>
       </div>
       <div class="date-picker-body">
         <div class="day-names">
@@ -95,27 +94,29 @@ import 'dayjs/locale/fr';
   ],
 })
 export class DatePickerComponent {
-  @Output() dateSelected = new EventEmitter<string>();
+
+  @Output() dateSelected = new EventEmitter<Date>();
   @Input() formatLetter: boolean = false;
-  @Input() defaultDate: string | Date = '';
+  @Input() selectedDate: Date = new Date();
 
   ngOnInit() {
-    if (this.defaultDate) {
-      const defaultDayjs = dayjs(this.defaultDate, 'DD/MM/YYYY');
+    if (this.selectedDate) {
+      const defaultDayjs = dayjs(this.selectedDate);
       this.currentMonth = dayjs().month(defaultDayjs.month());
       this.currentYear = defaultDayjs.year();
-      this.selectedDate = defaultDayjs.format('DD/MM/YYYY');
     } else {
       this.currentMonth = dayjs();
       this.currentYear = this.currentMonth.year();
     }
   }
-  
 
+  get dateString() {
+    return dayjs(this.selectedDate).format(this.formatLetter ? 'DD MMM. YYYY' : 'DD/MM/YYYY');
+  }
 
   currentMonth: dayjs.Dayjs;
   showDatePicker: boolean = false;
-  selectedDate: string = '';
+  
   currentYear: number;
 
   constructor() {
@@ -132,22 +133,26 @@ export class DatePickerComponent {
     this.showDatePicker = !this.showDatePicker;
   }
 
-  prevMonth() {
+  prevMonth(event: Event) {
+    event.preventDefault();
     this.currentMonth = this.currentMonth.subtract(1, 'month');
     this.currentYear = this.currentMonth.year();
   }
 
-  nextMonth() {
+  nextMonth(event: Event) {
+    event.preventDefault();
     this.currentMonth = this.currentMonth.add(1, 'month');
     this.currentYear = this.currentMonth.year();
   }
 
-  prevYear() {
+  prevYear(event: Event) {
+    event.preventDefault();
     this.currentYear--;
     this.updateCurrentMonth();
   }
 
-  nextYear() {
+  nextYear(event: Event) {
+    event.preventDefault();
     this.currentYear++;
     this.updateCurrentMonth();
   }
@@ -197,11 +202,9 @@ export class DatePickerComponent {
       selectedMonth = this.currentMonth.add(1, 'month');
     }
 
-    const formattedDate = this.formatLetter
-      ? selectedMonth.date(dayInfo.day).format('DD MMM. YYYY')
-      : selectedMonth.date(dayInfo.day).format('DD/MM/YYYY');
+    let date = selectedMonth.date(dayInfo.day);
     this.toggleDatePicker();
-    this.selectedDate = formattedDate;
-    this.dateSelected.emit(formattedDate);
+    this.dateSelected.emit(selectedMonth.date(dayInfo.day).toDate());
+    
   }
 }
