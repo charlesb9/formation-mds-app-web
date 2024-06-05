@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { ProjectForm, Task, TaskForm } from './../interfaces/projet.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,6 @@ import { ProjectService } from './project.service';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    JsonPipe
   ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'

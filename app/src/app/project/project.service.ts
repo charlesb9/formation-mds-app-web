@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project } from '../interfaces/projet.interface';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,19 +9,15 @@ import { Project } from '../interfaces/projet.interface';
 export class ProjectService {
   projects: Project[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   get() {
-    let value = localStorage.getItem("project");
-    if (value) {
-      this.projects = JSON.parse(value);
-      return this.projects;
-    }
-    return undefined;
+    const response = this.http.get<Project[]>(`${environment.apiUrl}/project`).subscribe(projects => this.projects = projects)
+    return this.projects;
   }
 
   save(project: Project) {
     this.projects.push(project);
-    return localStorage.setItem("project", JSON.stringify(this.projects));
+    this.http.post(`${environment.apiUrl}/project`, project).subscribe();
   }
 }
