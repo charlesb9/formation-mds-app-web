@@ -28,4 +28,7 @@ export class ProjectService {
     this.projects.push(project);
     this.http.post(`${environment.apiUrl}/project`, project).subscribe();
   }
+  addStatus() {
+    
+  }
 }
