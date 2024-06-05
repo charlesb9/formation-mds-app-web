@@ -43,9 +43,8 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<string> {
-    const loginUrl = `${this.apiUrl}/login`;
     return this.http.post<string>(
-      loginUrl,
+      `${this.apiUrl}/auth/login`,
       { email, password },
       {
         headers: new HttpHeaders({ "Content-Type": "application/json" }),
