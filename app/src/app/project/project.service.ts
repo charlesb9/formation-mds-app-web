@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../interfaces/projet.interface';
+import { Project, ProjectForm } from '../interfaces/projet.interface';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
@@ -12,8 +12,14 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  get(): Observable<Project[]> {
+  getAll(): Observable<Project[]> {
     return this.http.get<{data: Project[]}>(`${environment.apiUrl}/project`).pipe(
+      map((response) => response.data),
+    );
+  }
+
+  getOne(id: string): Observable<Project> {
+    return this.http.get<{data: Project}>(`${environment.apiUrl}/project/${id}`).pipe(
       map((response) => response.data),
     );
   }
