@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
@@ -88,6 +88,7 @@ export class SelectComponent {
   @Input() isSearch: boolean = false;
   @Input() title: string = 'Recherche';
   @Input() displayFunction: (item: any) => string = (item) => item.toString();
+  @Output() itemSelected = new EventEmitter<any>();
   filteredData: string[] = [];
   selectedValue: string | null = null;
   dropdownOpen: boolean = false;
@@ -116,6 +117,7 @@ export class SelectComponent {
 
   selectItem(item: string) {
     this.selectedValue = item;
+    this.itemSelected.emit(item);
     this.dropdownOpen = false;
   }
 
