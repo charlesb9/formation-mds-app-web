@@ -11,10 +11,10 @@
         <label for="user">Utilisateurs:</label>
         <div *ngFor="let user of users.controls; let i=index" [formGroupName]="i">
             <input formControlName="name" placeholder="User Name">
-            <button type="button" (click)="removeUser(i)">Supprimer</button>
+            <app-button (click)="removeUser(i)" label="Supprimer"></app-button>
         </div>
     </div>
-    <button type="button" id="btn-btn" (click)="addUser()">Ajouter Utilisateur</button>
+    <app-button (click)="addUser()" label="Ajouter Utilisateur"></app-button>
 
     <div>
         <label for="description">Description:</label>
@@ -23,7 +23,8 @@
 
     <div>
         <label for="endTask">Date de fin:</label>
-        <input id="endTask" type="date" formControlName="endTask">
+        <!-- <input id="endTask" type="date" formControlName="endTask"> -->
+        <app-date-picker [formControlName]="taskForm.endTask"></app-date-picker>
     </div>
 
     <div>
@@ -49,5 +50,5 @@
         </select>
     </div>
 
-    <button type="submit" [disabled]="taskForm.invalid">Ajouter Tâche</button>
+    <app-button label="Ajouter Tâche"></app-button>
 </form>
