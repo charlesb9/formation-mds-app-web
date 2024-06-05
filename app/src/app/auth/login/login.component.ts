@@ -30,12 +30,6 @@ export class LoginComponent {
     return `${user.name} ${user.lastname}`;
   }
 
-  
-
-  onDateSelected(selectedDate: string) {
-    const [day, month, year] = selectedDate.split(' ');
-    const formattedDate = `${day}-${month}-${year}`;
-  }
 
   ngOnInit(){
     this.authService.isAuth$.subscribe(e => {

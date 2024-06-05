@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, Input, HostListener } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
@@ -201,9 +201,9 @@ export class DatePickerComponent {
     } else if (dayInfo.month === 'next') {
       selectedMonth = this.currentMonth.add(1, 'month');
     }
-
     let date = selectedMonth.date(dayInfo.day);
     this.toggleDatePicker();
+    this.selectedDate = date.toDate();
     this.dateSelected.emit(selectedMonth.date(dayInfo.day).toDate());
     
   }
