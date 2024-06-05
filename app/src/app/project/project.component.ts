@@ -1,8 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { ProjectForm, Task, TaskForm, StatusForm } from './../interfaces/projet.interface';
+import { ProjectForm, Task, TaskForm, StatusForm, Project } from './../interfaces/projet.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -15,13 +16,15 @@ import { ProjectService } from './project.service';
 })
 export class ProjectComponent {
 
+  constructor(private route: ActivatedRoute) {}
+
   showProjectModal = false;
   showStatusModal = false;
   projectService = inject(ProjectService);
-  randomId =  Math.floor(Math.random() * 1000000).toString();
+  id : string = "";
   
   projetForm = new FormGroup<ProjectForm>({
-    id: new FormControl(this.randomId, {nonNullable : true}),
+    _id: new FormControl("", {nonNullable: true}),
     title: new FormControl("",{nonNullable : true}),
     description: new FormControl("",{nonNullable : true}),
     tasks: new FormArray<FormGroup<TaskForm>>([]),
@@ -36,17 +39,19 @@ export class ProjectComponent {
   }, {updateOn: 'blur'})
 
   ngOnInit() {
-    let projects = this.projectService.get();
-    if (projects) {
-      projects.forEach(project => {
-        project.tasks.forEach(task => {
-          this.addTask(task);
-        });
-        project.status.forEach(status => {
-          this.addStatus(status);
-        });
-      })
-    }
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if (this.id) {
+        this.loadProject();
+      }
+    });
+    
+  }
+
+  loadProject() {
+    this.projectService.getOne(this.id).subscribe((project) => {
+      this.projetForm.patchValue(project);
+    })
   }
 
   addStatus(status?: {name: string, color: string}) {

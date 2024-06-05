@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../interfaces/projet.interface';
+import { Project, ProjectForm } from '../interfaces/projet.interface';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,16 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  get() {
-    const response = this.http.get<Project[]>(`${environment.apiUrl}/project`).subscribe(projects => this.projects = projects)
-    return this.projects;
+  getAll(): Observable<Project[]> {
+    return this.http.get<{data: Project[]}>(`${environment.apiUrl}/project`).pipe(
+      map((response) => response.data),
+    );
+  }
+
+  getOne(id: string): Observable<Project> {
+    return this.http.get<{data: Project}>(`${environment.apiUrl}/project/${id}`).pipe(
+      map((response) => response.data),
+    );
   }
 
   save(project: Project) {

@@ -111,8 +111,6 @@
   <form [formGroup]="projetForm" class="flex flex-col gap-2 w-full max-w-xl mx-auto">
     <label>Titre</label>
     <input class="w-full h-10" [formControl]="projetForm.controls.title"/>
-    <label>Identifiant</label>
-    <input class="w-full h-10" [formControl]="projetForm.controls.id"/>
     <label>Statuts</label>
     @for(control of projetForm.controls.status.controls; track $index) {
       <input class="w-full h-10" [formControl]="control"/>

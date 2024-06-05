@@ -3,7 +3,7 @@
 
     <div class="home-projects">
         @for(project of projects; track $index) {
-            <projet-card [projet]="project"></projet-card>
+            <projet-card [projet]="project" (redirect)="redirectToProject($event)"></projet-card>
         }
     </div>
 </div>
