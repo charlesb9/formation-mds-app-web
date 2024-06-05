@@ -30,6 +30,8 @@
   ></app-select>
   <app-euro-input [width]="500" />
   <app-date-picker
+    [formatLetter]="true"
     (dateSelected)="onDateSelected($event)"
-  ></app-date-picker>
+    [defaultDate]="'11/01/2002'"
+  />
 </div>
