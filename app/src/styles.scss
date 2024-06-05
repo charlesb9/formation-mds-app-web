@@ -15,10 +15,6 @@ input, textarea, select {
     @apply border rounded w-full
 }
 
-label {
-    @apply uppercase font-semibold
-}
-
 h1 {
     @apply text-4xl font-semibold;
 }
@@ -39,35 +35,6 @@ h5 {
     @apply text-lg font-semibold;
 }
 
-.modal {
-    z-index: 100;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba($color: black, $alpha: 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .x-mark {
-        margin-left: auto;
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-    }
-    &-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: white;
-        padding-bottom: 10px;
-        border-radius: 5px 5px 0 0;
-    }
-    &-content {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        width: 80%;
-        max-width: 500px;
-    }
+.no-scroll {
+    @apply overflow-hidden;
 }

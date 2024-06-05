@@ -22,6 +22,17 @@
         Add status
       </button>
     </div>
+=======
+  <div class="font-bold text-4xl">{{ project.title }}</div>
+  <div class="my-6 mx-4 flex gap-1">
+    <input
+      class="bg-slate-100 border border-slate-300 rounded w-full py-[5px]"
+      type="text"
+    />
+    <button >Discard</button>
+    <button >Save</button>
+    <app-button (onClick)="setShowAddProject()" variant="create" label="Add project"></app-button>
+>>>>>>> 8b3cb6319e2bd36d8d3f856c77fb0d77e711c534
   </div>
 
   <div class="container flex gap-3">
@@ -63,14 +74,13 @@
           <label for="description">Description</label>
           <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
           <label for="start">Start date</label>
-          <input type="date" id="start" [formControl]="projetForm.controls.startDate"/>
+        <app-date-picker [formControl]="projetForm.controls.startDate"></app-date-picker>
           <label for="end">End date</label>
-          <input type="date" id="end" [formControl]="projetForm.controls.startDate"/>
-          <button (click)="save($event)">Add</button>
+        <app-date-picker [formControl]="projetForm.controls.endDate"></app-date-picker>
+        <app-button (click)="save($event)" variant="create" label="Create project"></app-button>
         </form>
       </div>
-    </div>
-  </div>
+  </app-modal>
 }
 
 @if (showStatusModal) {

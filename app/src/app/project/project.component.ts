@@ -1,15 +1,20 @@
-import { JsonPipe } from '@angular/common';
 import { ProjectForm, Task, TaskForm, StatusForm, Project } from './../interfaces/projet.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppModal } from 'src/app/components/modal.component';
+import {ButtonComponent} from 'src/app/components/button.component';
+import { DatePickerComponent } from 'src/app/components/date-picker.component';
 
 @Component({
   selector: 'app-project',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    AppModal,
+    ButtonComponent,
+    DatePickerComponent,
   ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
@@ -22,6 +27,15 @@ export class ProjectComponent {
   showStatusModal = false;
   projectService = inject(ProjectService);
   id : string = "";
+  project: Project = {
+    _id: "",
+    title: "",
+    description: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    tasks: [],
+    status: []
+  };
   
   projetForm = new FormGroup<ProjectForm>({
     _id: new FormControl("", {nonNullable: true}),
@@ -50,7 +64,7 @@ export class ProjectComponent {
 
   loadProject() {
     this.projectService.getOne(this.id).subscribe((project) => {
-      this.projetForm.patchValue(project);
+      this.project = project;
     })
   }
 
