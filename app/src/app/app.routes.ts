@@ -1,21 +1,19 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth/auth.guard';
+import { AuthGuard } from './user/auth.guard';
 
 export const routes: Routes = [{
     path: "messenger",
-    canActivate: [() => authGuard()],
+    canActivate: [AuthGuard],
     loadComponent: () => import('./messenger/messenger.component').then(c => c.MessengerComponent)
 },{
     path: "",
     pathMatch: "full",
-    canActivate: [() => authGuard()],
     loadComponent: () => import ('./home/home.component').then(c => c.HomeComponent)
 },{
     path: "login",
-    loadComponent: () => import ('./auth/login/login.component').then(c => c.LoginComponent)
+    loadComponent: () => import ('./user/user-login/user-login.component').then(c => c.UserLoginComponent)
 },{
-    path:"project",
-    canActivate: [() => authGuard()],
+    path:"projet",
     loadComponent: () => import('./project/project.component').then(c => c.ProjectComponent)
 },
 {

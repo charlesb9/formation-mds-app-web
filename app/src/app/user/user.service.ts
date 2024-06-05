@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { User } from "../interfaces/user.interface";
 
 @Injectable({
@@ -43,13 +43,12 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<string> {
-    const loginUrl = `${this.apiUrl}/login`;
     return this.http.post<string>(
-      loginUrl,
+      `${this.apiUrl}/auth/login`,
       { email, password },
       {
         headers: new HttpHeaders({ "Content-Type": "application/json" }),
       }
-    );
+    ).pipe(tap(token => localStorage.setItem('token', token)));
   }
 }
