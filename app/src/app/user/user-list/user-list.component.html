@@ -1,25 +1,109 @@
 <div class="user-list-container">
     <h2>User List</h2>
+    <div class="view-toggle">
+        <svg (click)="setDisplay('grid')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M4 11V4h7v7zm0 9v-7h7v7zm9-9V4h7v7zm0 9v-7h7v7z" />
+        </svg>
+
+        <svg (click)="setDisplay('list')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M7 9V7h14v2zm0 4v-2h14v2zm0 4v-2h14v2zM4 9q-.425 0-.712-.288T3 8t.288-.712T4 7t.713.288T5 8t-.288.713T4 9m0 4q-.425 0-.712-.288T3 12t.288-.712T4 11t.713.288T5 12t-.288.713T4 13m0 4q-.425 0-.712-.288T3 16t.288-.712T4 15t.713.288T5 16t-.288.713T4 17" />
+        </svg>
+    </div>
+
+
     @switch (display) {
-        @case('list') {
-            <ul>
-                @for (user of users; track user._id) {
-                    <li>
-                        <div class="user-card" (click)="showUserDetails(user._id)" style="cursor: pointer;">
-                            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-                            <p><strong>ID:</strong> {{ user._id }}</p>
-                            <p><strong>Email:</strong> {{ user.email }}</p>
-                            @if(user.roles?.length) {
-                                <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
-                            }
-                            
-                          </div>
-                    </li>
+    @case ('list') {
+
+    <!-- Test du front -->
+    <!-- <ul class="user-list">
+        <li>
+            <div class="user-card-list" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+        <li>
+            <div class="user-card-list" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+        <li>
+            <div class="user-card-list" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+    </ul> -->
+
+    <ul class="user-list">
+        @for (user of users; track user._id;) {
+        <li>
+            <div class="user-card-list" (click)="showUserDetails(user._id)" style="cursor: pointer;">
+                <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                <p><strong>ID:</strong> {{ user._id }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                @if (user.roles?.length) {
+                <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
                 }
-            </ul>
+            </div>
+        </li>
         }
+    </ul>
     }
+    @case ('grid') {
+
+    <!-- Test du front -->
+    <!-- <ul class="user-grid">
+        <li>
+            <div class="user-card-grid" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+        <li>
+            <div class="user-card-grid" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+        <li>
+            <div class="user-card-grid" style="cursor: pointer;">
+                <h3>Test Raiden</h3>
+                <p><strong>ID:</strong> 1234</p>
+                <p><strong>Email:</strong> Testeur.test.com</p>
+                <p><strong>Roles:</strong> Testeur</p>
+            </div>
+        </li>
+    </ul> -->
 
 
+    <ul class="user-grid">
+        @for (user of users; track user._id;) {
+        <li>
+            <div class="user-card-grid" (click)="showUserDetails(user._id)" style="cursor: pointer;">
+                <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                <p><strong>ID:</strong>{{ user._id }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                @if (user.roles?.length) {
+                <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
+                }
+            </div>
+        </li>
+        }
+    </ul>
+    }
+    }
 
 </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit, NgModule, inject, Input } from '@angular/core';
+import { Component, OnInit, NgModule, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
 import { FormsModule } from '@angular/forms';
+
 import { Router } from '@angular/router';
 
 
@@ -17,8 +18,15 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
-  
-  constructor(private userService: UserService, private router: Router) {}
+
+  @Input() display: 'list' | 'grid' = 'list';
+
+  setDisplay(newDisplay: 'list' | 'grid'): void {
+    this.display = newDisplay;
+  }
+
+
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((data: User[]) => {
