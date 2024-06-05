@@ -14,8 +14,8 @@ import { IconComponent } from './icon.component';
                 <p>{{title}}</p>
                 <div class="x-mark" (click)="handleClose()">X</div>
             </div>
-            <div class="modal-content">
-                <ng-content select=".modal-content"></ng-content>
+            <div class="modal-inner-content">
+                <ng-content select=".modal-inner-content"></ng-content>
             </div>
         </div>
     </div>
@@ -59,6 +59,11 @@ import { IconComponent } from './icon.component';
             border-radius: 5px;
             width: 100%;
             max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        &-inner-content {
+            overflow-y: hidden;
         }
     }
     `,
@@ -70,7 +75,6 @@ export class AppModal {
     @Output() close = new EventEmitter();
 
     ngOnInit() {
-        console.log('show');
         if (this.show) {
             this.blockScroll();
         }
