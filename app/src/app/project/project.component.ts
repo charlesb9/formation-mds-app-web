@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ProjectForm, Task, TaskForm, StatusForm } from './../interfaces/projet.interface';
+import { ProjectForm, Task, TaskForm, StatusForm, Project } from './../interfaces/projet.interface';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
@@ -36,17 +36,21 @@ export class ProjectComponent {
   }, {updateOn: 'blur'})
 
   ngOnInit() {
-    let projects = this.projectService.get();
-    if (projects) {
+    
+  }
+
+  loadProjects() {
+    this.projectService.get().subscribe((projects) => {
       projects.forEach(project => {
+        this.projetForm.patchValue(project);
         project.tasks.forEach(task => {
           this.addTask(task);
         });
         project.status.forEach(status => {
           this.addStatus(status);
-        });
-      })
-    }
+      });
+    })
+  });
   }
 
   addStatus(status?: {name: string, color: string}) {
