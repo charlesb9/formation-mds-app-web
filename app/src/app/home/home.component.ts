@@ -15,11 +15,16 @@ export class HomeComponent {
   projects: Project[] = [];
 
   ngOnInit() {
-    const projects = this.projectService.get();
-    if (projects) {
-      this.projects = projects; 
-      console.log(this.projects);
-    }
+    this.loadProjects();
+  }
+
+  loadProjects() {
+    this.projectService.get().subscribe((projects) => {
+      console.log(projects);
+      projects.forEach(project => {
+        this.projects.push(project);
+      });
+    });
   }
 
 }
