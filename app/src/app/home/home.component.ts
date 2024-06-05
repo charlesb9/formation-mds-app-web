@@ -23,7 +23,6 @@ export class HomeComponent {
 
   loadProjects() {
     this.projectService.getAll().subscribe((projects) => {
-      console.log(projects);
       projects.forEach(project => {
         this.projects.push(project);
       });

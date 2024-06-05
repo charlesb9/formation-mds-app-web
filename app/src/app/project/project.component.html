@@ -65,27 +65,21 @@
 </section>
 
 @if (showProjectModal) {
-  <div class="modal">
+  <app-modal title="Add Project" (close)="setShowAddProject()" [show]="showProjectModal">
     <div class="modal-content">
-      <div class="modal-header">
-        <h2>Add Project</h2>
-        <p class="x-mark" (click)="setShowAddProject()">X</p>
-      </div>
-      <div class="modal-body">
-        <form>
-          <label for="title">Title</label>
-          <input type="text" id="title" [formControl]="projetForm.controls.title"/>
-          <label for="description">Description</label>
-          <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
-          <label for="start">Start date</label>
-          <input type="date" id="start" [formControl]="projetForm.controls.startDate"/>
-          <label for="end">End date</label>
-          <input type="date" id="end" [formControl]="projetForm.controls.startDate"/>
-          <button (click)="save($event)">Add</button>
-        </form>
-      </div>
+      <form class="form-project">
+        <label for="title">Title</label>
+        <input type="text" id="title" [formControl]="projetForm.controls.title"/>
+        <label for="description">Description</label>
+        <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
+        <label for="start">Start date</label>
+        <input type="date" id="start" [formControl]="projetForm.controls.startDate"/>
+        <label for="end">End date</label>
+        <input type="date" id="end" [formControl]="projetForm.controls.startDate"/>
+        <button (click)="save($event)">Add</button>
+      </form>
     </div>
-  </div>
+  </app-modal>
 }
 
 @if (showStatusModal) {

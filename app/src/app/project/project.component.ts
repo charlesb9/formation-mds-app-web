@@ -4,12 +4,14 @@ import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './project.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppModal } from 'src/app/components/modal.component';
 
 @Component({
   selector: 'app-project',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    AppModal,
   ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
