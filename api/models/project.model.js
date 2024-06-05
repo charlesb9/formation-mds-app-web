@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Task = require("./task.model");
 const User = require("./user.model");
+const path = require("path");
 
 const projectSchema = new Schema({
   title: { type: String, required: true },
