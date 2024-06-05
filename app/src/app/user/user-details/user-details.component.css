@@ -2,14 +2,20 @@
   margin: 20px;
   padding: 20px;
   border: 1px solid #ccc;
+  background-color: #F1F5F9;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
+  margin-bottom: 25px;
   text-align: center;
-  margin-bottom: 20px;
+  background-color: #d1d5db;
+  border-radius: 10px;
+  padding: 1px;
+  font: bold;
 }
+
 
 p {
   margin: 10px 0;

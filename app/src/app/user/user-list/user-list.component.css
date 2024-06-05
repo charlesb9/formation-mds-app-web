@@ -22,17 +22,25 @@ li {
 
 }
 
+.user-card-list:hover {
+  transform: scale3d(1.05, 1.05, 1.05);
+}
+
+.user-card-grid:hover {
+  transform: scale3d(1.05, 1.05, 1.05);
+}
+
 .user-card-grid {
   display: flex;
   flex-direction: column;
-  background-color: #374151;
-  border: 1px solid #d1d5db;
+  background-color: #F1F5F9;
+  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 10px;
   width: 300px;
   height: 200px;
   margin: 20px;
-
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-card-grid h3 {
@@ -41,20 +49,23 @@ li {
   background-color: #d1d5db;
   border-radius: 10px;
   padding: 1px;
+  font: bold;
 }
 
 .user-card-grid p {
   margin-left: 5px;
   padding: 4px;
-  color: white;
+  color: black;
 }
 
 .user-card-list {
-  background-color: #374151;
-  border: 1px solid #d1d5db;
+  background-color: #F1F5F9;
+  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 10px;
   margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .user-card-list h3 {
@@ -63,12 +74,13 @@ li {
   background-color: #d1d5db;
   border-radius: 10px;
   padding: 1px;
+  font: bold;
 }
 
 .user-card-list p {
   margin-left: 5px;
   padding: 4px;
-  color: white;
+  color: black;
 }
 
 .view-toggle {
@@ -93,5 +105,5 @@ li {
 
 .view-toggle svg:active {
   background-color: #6b7280;
-  transform: translateY(5px);
+  transform: perspective(1px) scale(0.9);
 }
