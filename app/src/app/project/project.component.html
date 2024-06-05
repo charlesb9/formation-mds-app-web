@@ -1,5 +1,5 @@
 <section class="p-4">
-  <div class="font-bold text-4xl">{{ projet.title }}</div>
+  <div class="font-bold text-4xl">{{ project.title }}</div>
   <div class="my-6 mx-4 flex gap-1">
     <input
       class="bg-slate-100 border border-slate-300 rounded w-full py-[5px]"
@@ -7,7 +7,7 @@
     />
     <button >Discard</button>
     <button >Save</button>
-    <button (click)="setShowAddProject()">Add project</button>
+    <app-button (onClick)="setShowAddProject()" variant="create" label="Add project"></app-button>
   </div>
   <div class="container flex gap-3">
     <div class="column">
@@ -66,17 +66,17 @@
 
 @if (showProjectModal) {
   <app-modal title="Add Project" (close)="setShowAddProject()" [show]="showProjectModal">
-    <div class="modal-content">
+    <div class="modal-inner-content">
       <form class="form-project">
         <label for="title">Title</label>
         <input type="text" id="title" [formControl]="projetForm.controls.title"/>
         <label for="description">Description</label>
         <textarea id="description" [formControl]="projetForm.controls.description"></textarea>
         <label for="start">Start date</label>
-        <input type="date" id="start" [formControl]="projetForm.controls.startDate"/>
+        <app-date-picker [formControl]="projetForm.controls.startDate"></app-date-picker>
         <label for="end">End date</label>
-        <input type="date" id="end" [formControl]="projetForm.controls.startDate"/>
-        <button (click)="save($event)">Add</button>
+        <app-date-picker [formControl]="projetForm.controls.endDate"></app-date-picker>
+        <app-button (click)="save($event)" variant="create" label="Create project"></app-button>
       </form>
     </div>
   </app-modal>
