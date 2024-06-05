@@ -10,7 +10,10 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 
+dayjs.locale('fr');
 registerLocaleData(fr);
 
 export const appConfig: ApplicationConfig = {
