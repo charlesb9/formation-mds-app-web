@@ -28,8 +28,11 @@
 
     <div>
         <label for="status">Statut:</label>
-        <input type="text" name="status" id="status">
-        <input type="color">
+        <select>
+            @for( status of project?.status; track status){
+                <option [value]="status">{{ status.name }}</option>
+            }
+        </select>
     </div>
 
     <div>

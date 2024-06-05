@@ -23,7 +23,7 @@
       </div>
       <div class="tasks"></div>
       <div class="addItem">
-        <button>+ Add Item</button>
+        <button (click)="addTask()">+ Add Item</button>
       </div>
     </div>
     <div class="column">
@@ -41,7 +41,7 @@
         
       </div>
       <div class="addItem">
-        <button>+ Add Item</button>
+        <button (click)="addTask()">+ Add Item</button>
       </div>
     </div>
     <div class="column">
@@ -57,7 +57,7 @@
       </div>
       <div class="tasks"></div>
       <div class="addItem">
-        <button>+ Add Item</button>
+        <button (click)="addTask()">+ Add Item</button>
       </div>
     </div>
   </div>
@@ -101,6 +101,13 @@
     </div>
   </div>
 }
+
+@if (showTaskModal){
+  <app-modal (close)="setShowTaskModal()" [show]="showTaskModal">
+    <app-taskform class="modal-inner-content" [project]="project"/>
+  </app-modal>
+}
+
 <section class="bg-slate-100 p-4 flex flex-col items-center gap-2">
   <form [formGroup]="projetForm" class="flex flex-col gap-2 w-full max-w-xl mx-auto">
     <label>Titre</label>

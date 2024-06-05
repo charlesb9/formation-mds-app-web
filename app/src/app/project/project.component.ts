@@ -6,18 +6,20 @@ import { ActivatedRoute } from '@angular/router';
 import { AppModal } from 'src/app/components/modal.component';
 import {ButtonComponent} from 'src/app/components/button.component';
 import { DatePickerComponent } from 'src/app/components/date-picker.component';
+import { TaskformComponent } from "../taches/taskform.component";
 
 @Component({
-  selector: 'app-project',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    AppModal,
-    ButtonComponent,
-    DatePickerComponent,
-  ],
-  templateUrl: './project.component.html',
-  styleUrl: './project.component.scss'
+    selector: 'app-project',
+    standalone: true,
+    templateUrl: './project.component.html',
+    styleUrl: './project.component.scss',
+    imports: [
+        ReactiveFormsModule,
+        AppModal,
+        ButtonComponent,
+        DatePickerComponent,
+        TaskformComponent
+    ]
 })
 export class ProjectComponent {
 
@@ -25,6 +27,7 @@ export class ProjectComponent {
 
   showProjectModal = false;
   showStatusModal = false;
+  showTaskModal = false;
   projectService = inject(ProjectService);
   id : string = "";
   project: Project = {
@@ -79,6 +82,11 @@ export class ProjectComponent {
     if (!this.showProjectModal) this.reset();
   }
 
+  setShowTaskModal(){
+    this.showTaskModal = !this.showTaskModal;
+    if (!this.showTaskModal) this.reset();
+  }
+
   reset() {
     this.projetForm.reset();
   }
@@ -88,15 +96,16 @@ export class ProjectComponent {
   }
 
   addTask(task?: Task) {
-    let form = new FormGroup<TaskForm>({
-      title: new FormControl("", {nonNullable: true}),
-      description: new FormControl("", {nonNullable: true}),
-      status: new FormControl("", {nonNullable: true}),
-      start: new FormControl("", {nonNullable: true}),
-      end: new FormControl("", {nonNullable: true})
-    })
-    if (task) form.patchValue(task);
-    this.projetForm.controls.tasks.push(form);
+    this.showTaskModal = true;
+    // let form = new FormGroup<TaskForm>({
+    //   title: new FormControl("", {nonNullable: true}),
+    //   description: new FormControl("", {nonNullable: true}),
+    //   status: new FormControl("", {nonNullable: true}),
+    //   start: new FormControl("", {nonNullable: true}),
+    //   end: new FormControl("", {nonNullable: true})
+    // })
+    // if (task) form.patchValue(task);
+    // this.projetForm.controls.tasks.push(form);
   }
 
 

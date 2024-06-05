@@ -1,38 +1,47 @@
 import { TaskService } from './task.service';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Task } from '../../../../common/task.interface';
+import { ButtonComponent } from "../components/button.component";
+import { Project } from '../interfaces/projet.interface';
 
 
 @Component({
-  selector: 'app-taskform',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule, CommonModule,
-  ],
-  templateUrl: './taskform.component.html',
-  styleUrl: './taskform.component.scss'
+    selector: 'app-taskform',
+    standalone: true,
+    templateUrl: './taskform.component.html',
+    styleUrl: './taskform.component.scss',
+    imports: [
+      ReactiveFormsModule, CommonModule,
+      ButtonComponent
+    ]
 })
 export class TaskformComponent implements OnInit{
 
   TaskService = inject(TaskService);
 
-  taskForm: FormGroup;
+  taskForm: FormGroup = this.fb.group({
+    title: ['', Validators.required],
+    users: this.fb.array([]),
+    description: [''],
+    endTask: ['', Validators.required],
+    status: ['pending', Validators.required],
+    project: ['', Validators.required],
+    priority: ['medium', Validators.required]
+  });;
+
+  @Input() project?: Project;
 
   constructor(private fb: FormBuilder) {
-    this.taskForm = this.fb.group({
-      title: ['', Validators.required],
-      users: this.fb.array([]),
-      description: [''],
-      endTask: ['', Validators.required],
-      status: ['pending', Validators.required],
-      project: ['', Validators.required],
-      priority: ['medium', Validators.required]
-    });
+    
 }
 
-ngOnInit(): void {}
+ngOnInit(): void {
+  if (this.project) {
+    this.taskForm.patchValue({ project: this.project._id });
+  }
+}
 
   get users(): FormArray {
     return this.taskForm.get('users') as FormArray;
