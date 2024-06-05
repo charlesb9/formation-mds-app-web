@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Project } from '../interfaces/projet.interface';
 
 @Component({
@@ -10,7 +10,11 @@ import { Project } from '../interfaces/projet.interface';
 })
 export class ProjetCardComponent {
   @Input() projet!: Project;
+  @Output() redirect = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {}
 
+  redirectToProject(id: string) {
+    this.redirect.emit(id);
+  }
 }
