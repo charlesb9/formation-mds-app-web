@@ -1,13 +1,25 @@
 <div class="user-list-container">
     <h2>User List</h2>
-    <ul>
-        <li *ngFor="let user of users">
-            <div class="user-card" (click)="showUserDetails(user._id)" style="cursor: pointer;">
-                <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-                <p><strong>ID:</strong> {{ user._id }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
-              </div>
-        </li>
-    </ul>
+    @switch (display) {
+        @case('list') {
+            <ul>
+                @for (user of users; track user._id) {
+                    <li>
+                        <div class="user-card" (click)="showUserDetails(user._id)" style="cursor: pointer;">
+                            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                            <p><strong>ID:</strong> {{ user._id }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            @if(user.roles?.length) {
+                                <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
+                            }
+                            
+                          </div>
+                    </li>
+                }
+            </ul>
+        }
+    }
+
+
+
 </div>

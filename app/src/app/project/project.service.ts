@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Project } from '../interfaces/projet.interface';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
+  projects: Project[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   get() {
-    let value = localStorage.getItem("project");
-    if (value) {
-      return JSON.parse(value) as Project;
-    }
-    return undefined;
+    const response = this.http.get<Project[]>(`${environment.apiUrl}/project`).subscribe(projects => this.projects = projects)
+    return this.projects;
   }
 
-  update(project: Project) {
-    console.log("data updated");
-    return localStorage.setItem("project", JSON.stringify(project));
+  save(project: Project) {
+    this.projects.push(project);
+    this.http.post(`${environment.apiUrl}/project`, project).subscribe();
   }
 }

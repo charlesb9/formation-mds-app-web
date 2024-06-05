@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 import { User } from '../../interfaces/user.interface';
@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [
+    FormsModule,
+    CommonModule],
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
-
+  
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {

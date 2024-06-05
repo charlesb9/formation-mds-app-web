@@ -1,3 +1,11 @@
 :host {
 	@apply p-6 lg:p-16
 }
+
+.home-title {
+	@apply mb-10;
+}
+
+.home-projects {
+	@apply grid flex-wrap gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+}
