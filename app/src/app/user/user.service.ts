@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 import { User } from "../interfaces/user.interface";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -9,7 +10,13 @@ import { User } from "../interfaces/user.interface";
 export class UserService {
   private apiUrl = "http://localhost:3000";
 
-  constructor(private http: HttpClient) {}
+  loggedIn = false;
+
+  private router = inject(Router)
+
+  constructor(private http: HttpClient) {
+    this.loggedIn = !!localStorage.getItem('token');
+  }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/user/`);
@@ -49,6 +56,18 @@ export class UserService {
       {
         headers: new HttpHeaders({ "Content-Type": "application/json" }),
       }
-    ).pipe(tap(token => localStorage.setItem('token', token)));
+    ).pipe(
+      tap(token => {
+        localStorage.setItem('token', token)
+        this.loggedIn = true;
+      })
+    );
+  }
+
+
+  logout() {
+    localStorage.removeItem('token');
+    this.loggedIn = false;
+    this.router.navigate(['/login']);
   }
 }
