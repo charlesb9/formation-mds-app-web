@@ -1,0 +1,21 @@
+.column{
+    @apply bg-slate-100 w-[400px] h-[700px] rounded-md border border-slate-500 p-2 relative; 
+}
+.title{
+    @apply flex justify-between items-center
+}
+
+.description{
+    @apply text-slate-600 text-sm
+}
+
+.addItem{
+    @apply absolute bottom-0 left-0 bg-slate-200 rounded-md p-2 flex justify-between items-center
+}
+button{
+    @apply bg-none
+}
+
+.tasks{
+    @apply bg-slate-50 rounded-xl p-2 mt-4 flex flex-col w-full
+}

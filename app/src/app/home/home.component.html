@@ -1,0 +1,9 @@
+<div>
+    <h1 class="home-title">Mes projets</h1>
+
+    <div class="home-projects">
+        @for(project of projects; track $index) {
+            <projet-card [projet]="project" (redirect)="redirectToProject($event)"></projet-card>
+        }
+    </div>
+</div>

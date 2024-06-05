@@ -1,0 +1,6 @@
+<div class="user-detail-container" *ngIf="user">
+    <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+    <p><strong>ID:</strong> {{ user._id }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Roles:</strong> {{ user.roles?.join(', ') }}</p>
+</div>

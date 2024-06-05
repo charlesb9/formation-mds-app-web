@@ -1,0 +1,14 @@
+<div class="project-card p-8 bg-slate-100 w-full h-full shadow-md rounded-lg flex flex-col items-center" (click)="redirectToProject(projet._id)">
+    <svg width="233" height="224" viewBox="0 0 233 224" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_256_839)">
+            <path d="M139.8 140H93.2C86.767 140 81.55 146.269 81.55 154V210C81.55 217.731 86.767 224 93.2 224H139.8C146.233 224 151.45 217.731 151.45 210V154C151.45 146.269 146.233 140 139.8 140ZM69.9 14C69.9 6.26937 64.683 0 58.25 0H11.65C5.21702 0 0 6.26937 0 14V70C0 77.7306 5.21702 84 11.65 84H46.4981L73.1329 140.018C77.174 131.679 84.6081 126 93.2 126H93.3019L69.9 76.7856V56H151.45V28H69.9V14ZM221.35 0H174.75C168.317 0 163.1 6.26937 163.1 14V70C163.1 77.7306 168.317 84 174.75 84H221.35C227.783 84 233 77.7306 233 70V14C233 6.26937 227.783 0 221.35 0Z" fill="currentColor"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_256_839">
+            <rect width="233" height="224" fill="white"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <p class="font-bold text-2xl">{{projet.title}}</p>
+    <p>{{projet.description}}</p>
+</div>
