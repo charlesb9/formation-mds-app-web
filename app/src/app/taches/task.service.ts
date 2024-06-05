@@ -14,7 +14,7 @@ const tasks: Task[] = [
       endTask: new Date(),
       status: { title: 'pending', color: 'grey' },
       project: {
-        id: '1',
+        _id: '1',
         title: 'Project 1',
         description: 'Description of Project 1',
         startDate: new Date(),
@@ -36,7 +36,7 @@ const tasks: Task[] = [
       endTask: new Date(),
       status: { title: 'pending', color: 'grey' },
       project: {
-        id: '2',
+        _id: '2',
         title: 'Project 2',
         description: 'Description of Project 2',
         startDate: new Date(),
@@ -58,7 +58,7 @@ const tasks: Task[] = [
       endTask: new Date(),
       status: { title: 'pending', color: 'grey' },
       project: {
-        id: '1',
+        _id: '1',
         title: 'Project 1',
         description: 'Description of Project 3',
         startDate: new Date(),
@@ -103,10 +103,10 @@ export class TaskService {
     );
     /* return this.http.get<Task>(`tasks/${id}`) */
   }
-
+  
   getTasksByProject(projectId: string) {
     return of(tasks).pipe(
-      map((tasks) => tasks.filter(task => task.project.id === projectId))
+      map((tasks) => tasks.filter(task => task.project._id === projectId))
     );
     /* return this.http.get<Task[]>(`tasks/project/${projectId}`) */
   }
